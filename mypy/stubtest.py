@@ -269,6 +269,20 @@ def verify_typeinfo(
     if not isinstance(runtime, type):
         yield Error(object_path, "is not a type", stub, runtime, stub_desc=repr(stub))
         return
+    if inspect.isabstract(runtime) and not stub.is_abstract:
+        abstract_attrs = [
+            k
+            for k, v in runtime.__dict__.items()
+            if is_abstractmethod(v)
+        ]
+        yield Error(
+            object_path,
+            "has abstract attributes at runtime but not in the stub",
+            stub,
+            runtime,
+            stub_desc=f"{stub!r}, with no abstract attributes",
+            runtime_desc=f"Abstract attributes are: {abstract_attrs}"
+        )
 
     try:
         class SubClass(runtime):  # type: ignore
@@ -716,6 +730,16 @@ def verify_funcitem(
         if not callable(runtime):
             return
 
+    if isinstance(stub, nodes.FuncDef) and not stub.is_abstract and is_abstractmethod(runtime):
+        yield Error(
+            object_path,
+            "is abstract at runtime, but not in the stub",
+            stub,
+            runtime,
+            stub_desc="A concrete method",
+            runtime_desc="An abstract method"
+        )
+
     for message in _verify_static_class_methods(stub, runtime, object_path):
         yield Error(object_path, "is inconsistent, " + message, stub, runtime)
 
@@ -1029,6 +1053,10 @@ IGNORABLE_CLASS_DUNDERS = frozenset(
         "__slots__",
     }
 )
+
+
+def is_abstractmethod(runtime: object) -> bool:
+    return getattr(runtime, "__isabstractmethod__", False)
 
 
 def is_probably_private(name: str) -> bool:

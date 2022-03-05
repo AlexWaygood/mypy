@@ -125,7 +125,7 @@ class Case:
     def __init__(self, stub: str, runtime: str, error: Optional[str]):
         self.stub = stub
         self.runtime = runtime
-        self.error = error
+        self.errors: Optional[List[str]] = None if error is None else error.split(', ')
 
 
 def collect_cases(fn: Callable[..., Iterator[Case]]) -> Callable[..., None]:
@@ -140,18 +140,18 @@ def collect_cases(fn: Callable[..., Iterator[Case]]) -> Callable[..., None]:
         cases = list(fn(*args, **kwargs))
         expected_errors = set()
         for c in cases:
-            if c.error is None:
+            if c.errors is None:
                 continue
-            expected_error = c.error
-            if expected_error == "":
-                expected_error = TEST_MODULE_NAME
-            elif not expected_error.startswith(f"{TEST_MODULE_NAME}."):
-                expected_error = f"{TEST_MODULE_NAME}.{expected_error}"
-            assert expected_error not in expected_errors, (
-                "collect_cases merges cases into a single stubtest invocation; we already "
-                "expect an error for {}".format(expected_error)
-            )
-            expected_errors.add(expected_error)
+            for expected_error in c.errors:
+                if expected_error == "":
+                    expected_error = TEST_MODULE_NAME
+                elif not expected_error.startswith(f"{TEST_MODULE_NAME}."):
+                    expected_error = f"{TEST_MODULE_NAME}.{expected_error}"
+                assert expected_error not in expected_errors, (
+                    "collect_cases merges cases into a single stubtest invocation; we already "
+                    "expect an error for {}".format(expected_error)
+                )
+                expected_errors.add(expected_error)
         output = run_stubtest(
             stub="\n\n".join(textwrap.dedent(c.stub.lstrip("\n")) for c in cases),
             runtime="\n\n".join(textwrap.dedent(c.runtime.lstrip("\n")) for c in cases),
@@ -227,6 +227,52 @@ class StubtestUnit(unittest.TestCase):
         yield Case(
             stub="async def bingo() -> int: ...",
             runtime="async def bingo(): return 5",
+            error=None,
+        )
+
+    @collect_cases
+    def test_abstract_classes(self) -> Iterator[Case]:
+        yield Case(
+            stub="""
+            class X:
+                def bar(self) -> None: ...
+            """,
+            runtime="""
+            from abc import abstractmethod
+            class X:
+                @abstractmethod
+                def bar(self): raise NotImplementedError
+            """,
+            # runtime method is abstract, stub class isn't
+            # neither stub nor runtime class is abstract
+            error="X.bar",
+        )
+        yield Case(
+            stub="""
+            class Y:
+                def bar(self) -> None: ...
+            """,
+            runtime="""
+            from abc import ABC, abstractmethod
+            class Y(ABC):
+                @abstractmethod
+                def bar(self): raise NotImplementedError
+            """,
+            error="Y, Y.bar",  # runtime method and class are both abstract, stub isn't for either
+        )
+        yield Case(
+            stub="""
+            from abc import abstractmethod
+            class Z:
+                @abstractmethod
+                def bar(self) -> None: ...
+            """,
+            runtime="""
+            from abc import ABC, abstractmethod
+            class Z(ABC):
+                @abstractmethod
+                def bar(self): raise NotImplementedError
+            """,
             error=None,
         )
 
