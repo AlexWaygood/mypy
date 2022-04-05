@@ -160,14 +160,18 @@ reveal_type(list[str | None]())  # N: Revealed type is "builtins.list[Union[buil
 import lib
 reveal_type(lib.x)  # N: Revealed type is "Union[builtins.int, builtins.list[builtins.str], None]"
 reveal_type(lib.y)  # N: Revealed type is "builtins.list[Union[builtins.int, None]]"
+reveal_type(lib.z)  # N: Revealed type is "Union[builtins.int, def () -> builtins.str]"
 
 [file lib.pyi]
+from typing import Callable
 A = int | list[str] | None
 x: A
 B = list[int | None]
 y: B
 class C(list[int | None]):
     pass
+D = int | Callable[[], str]
+z: D
 [builtins fixtures/list.pyi]
 
 [case testUnionOrSyntaxInIsinstance]
