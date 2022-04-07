@@ -15,7 +15,9 @@ import types
 import warnings
 from functools import singledispatch
 from pathlib import Path
-from typing import Any, Dict, Generic, Iterator, List, Optional, Tuple, TypeVar, Union, cast
+from typing import (
+    Any, Dict, Generic, Iterator, List, Optional, Pattern, Tuple, TypeVar, Union, cast
+)
 
 from typing_extensions import Type
 
@@ -1309,16 +1311,31 @@ def get_typeshed_stdlib_modules(
     return sorted(modules)
 
 
-def get_allowlist_entries(allowlist_file: str) -> Iterator[str]:
-    def strip_comments(s: str) -> str:
+class AllowlistEntry:
+    def __init__(self, file: str, lineno: int, line: str) -> None:
         try:
-            return s[: s.index("#")].strip()
+            self.text = line[: line.index("#")].strip()
         except ValueError:
-            return s.strip()
+            self.text = line.strip()
 
+        self.file = file
+        self.lineno = lineno
+        self.used = False
+
+    def regex(self) -> Pattern[str]:
+        return re.compile(self.text)
+
+    def __bool__(self) -> bool:
+        return bool(self.text)
+
+    def __str__(self) -> str:
+        return f'"{self.text}" at path "{self.file}", line {self.lineno}'
+
+
+def get_allowlist_entries(allowlist_file: str) -> Iterator[AllowlistEntry]:
     with open(allowlist_file) as f:
-        for line in f.readlines():
-            entry = strip_comments(line)
+        for lineno, line in enumerate(f.readlines(), start=1):
+            entry = AllowlistEntry(allowlist_file, lineno, line)
             if entry:
                 yield entry
 
@@ -1327,12 +1344,23 @@ def test_stubs(args: argparse.Namespace, use_builtins_fixtures: bool = False) ->
     """This is stubtest! It's time to test the stubs!"""
     # Load the allowlist. This is a series of strings corresponding to Error.object_desc
     # Values in the dict will store whether we used the allowlist entry or not.
-    allowlist = {
-        entry: False
-        for allowlist_file in args.allowlist
-        for entry in get_allowlist_entries(allowlist_file)
-    }
-    allowlist_regexes = {entry: re.compile(entry) for entry in allowlist}
+    allowlist = {}
+    duplicates: Dict[str, List[AllowlistEntry]] = {}
+    for allowlist_file in args.allowlist:
+        for entry in get_allowlist_entries(allowlist_file):
+            text = entry.text
+            if text in allowlist:
+                duplicates.setdefault(text, []).append(entry)
+            allowlist[text] = entry
+
+    if duplicates:
+        print('Error: duplicate allowlist entries detected.')
+        for text, dupe_list in duplicates.items():
+            dupes_summary = '; '.join(f'"{entry.file}", line {entry.lineno}' for entry in dupe_list)
+            print(f'{text} found at {dupes_summary}')
+        return 1
+
+    allowlist_regexes = {entry.text: entry.regex() for entry in allowlist.values()}
 
     # If we need to generate an allowlist, we store Error.object_desc for each error here.
     generated_allowlist = set()
@@ -1372,12 +1400,12 @@ def test_stubs(args: argparse.Namespace, use_builtins_fixtures: bool = False) ->
             if args.ignore_positional_only and error.is_positional_only_related():
                 continue
             if error.object_desc in allowlist:
-                allowlist[error.object_desc] = True
+                allowlist[error.object_desc].used = True
                 continue
             is_allowlisted = False
             for w in allowlist:
                 if allowlist_regexes[w].fullmatch(error.object_desc):
-                    allowlist[w] = True
+                    allowlist[w].used = True
                     is_allowlisted = True
                     break
             if is_allowlisted:
@@ -1395,9 +1423,9 @@ def test_stubs(args: argparse.Namespace, use_builtins_fixtures: bool = False) ->
         for w in allowlist:
             # Don't consider an entry unused if it regex-matches the empty string
             # This lets us allowlist errors that don't manifest at all on some systems
-            if not allowlist[w] and not allowlist_regexes[w].fullmatch(""):
+            if not allowlist[w].used and not allowlist_regexes[w].fullmatch(""):
                 exit_code = 1
-                print("note: unused allowlist entry {}".format(w))
+                print("note: unused allowlist entry {}".format(allowlist[w]))
 
     # Print the generated allowlist
     if args.generate_allowlist:

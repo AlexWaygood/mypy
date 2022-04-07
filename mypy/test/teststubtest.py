@@ -7,6 +7,7 @@ import sys
 import tempfile
 import textwrap
 import unittest
+from os import path
 from typing import Any, Callable, Iterator, List, Optional
 
 import mypy.stubtest
@@ -1071,7 +1072,10 @@ class StubtestMiscUnit(unittest.TestCase):
 
             # test unused entry detection
             output = run_stubtest(stub="", runtime="", options=["--allowlist", allowlist.name])
-            assert output == "note: unused allowlist entry {}.bad\n".format(TEST_MODULE_NAME)
+            assert output == 'note: unused allowlist entry "{}.bad" at path "{}", line 1\n'.format(
+                TEST_MODULE_NAME,
+                path.abspath(allowlist.name)
+            )
 
             output = run_stubtest(
                 stub="",
@@ -1103,8 +1107,11 @@ class StubtestMiscUnit(unittest.TestCase):
                 ),
                 options=["--allowlist", allowlist.name, "--generate-allowlist"],
             )
-            assert output == "note: unused allowlist entry unused.*\n{}.also_bad\n".format(
-                TEST_MODULE_NAME
+            assert output == (
+                'note: unused allowlist entry "unused.*\n{}.also_bad" at path {}, line 3\n'.format(
+                    TEST_MODULE_NAME,
+                    path.abspath(allowlist.name)
+                )
             )
         finally:
             os.unlink(allowlist.name)
