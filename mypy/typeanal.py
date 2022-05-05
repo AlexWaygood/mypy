@@ -214,6 +214,8 @@ class TypeAnalyser(SyntheticTypeVisitor[Type], TypeAnalyzerPluginInterface):
             tvar_def = self.tvar_scope.get_binding(sym)
             if isinstance(sym.node, ParamSpecExpr):
                 if tvar_def is None:
+                    print(self.tvar_scope.scope)
+                    print(self.tvar_scope.is_class_scope)
                     self.fail('ParamSpec "{}" is unbound'.format(t.name), t)
                     return AnyType(TypeOfAny.from_error)
                 assert isinstance(tvar_def, ParamSpecType)
