@@ -7,7 +7,7 @@ from mypy.types import (
     CallableType, Type, TypeVisitor, UnboundType, AnyType, NoneType, TypeVarType, Instance,
     TupleType, TypedDictType, UnionType, Overloaded, ErasedType, PartialType, DeletedType,
     UninhabitedType, TypeType, TypeVarId, TypeQuery, is_named_instance, TypeOfAny, LiteralType,
-    ProperType, ParamSpecType, get_proper_type, TypeAliasType, is_union_with_any,
+    ProperType, ParamSpecType, get_proper_type, TypeAliasType, is_union_with_any, TypeVarLikeType,
     UnpackType, callable_with_ellipsis, Parameters, TUPLE_LIKE_INSTANCE_NAMES, TypeVarTupleType,
 )
 from mypy.maptype import map_instance_to_supertype
@@ -110,7 +110,6 @@ def infer_constraints(template: Type, actual: Type,
 
 def _infer_constraints(template: Type, actual: Type,
                        direction: int) -> List[Constraint]:
-
     orig_template = template
     template = get_proper_type(template)
     actual = get_proper_type(actual)
@@ -137,7 +136,7 @@ def _infer_constraints(template: Type, actual: Type,
     #  2. "T :> Union[U1, U2]" is logically equivalent to "T :> U1 and
     #     T :> U2", but they are not equivalent to the constraint solver,
     #     which never introduces new Union types (it uses join() instead).
-    if isinstance(template, TypeVarType):
+    if isinstance(template, TypeVarLikeType):
         return [Constraint(template.id, direction, actual)]
 
     # Now handle the case of either template or actual being a Union.
@@ -172,6 +171,10 @@ def _infer_constraints(template: Type, actual: Type,
         # When the template is a union, we are okay with leaving some
         # type variables indeterminate. This helps with some special
         # cases, though this isn't very principled.
+        print(any_constraints(
+            [infer_constraints_if_possible(t_item, actual, direction)
+             for t_item in template.items],
+            eager=False))
         return any_constraints(
             [infer_constraints_if_possible(t_item, actual, direction)
              for t_item in template.items],
@@ -188,6 +191,7 @@ def infer_constraints_if_possible(template: Type, actual: Type,
     (In this case infer_constraints would return [], just like it would for
     an automatically satisfied relation like template=List[T] and actual=object.)
     """
+    print('template', template, 'actual', actual)
     if (direction == SUBTYPE_OF and
             not mypy.subtypes.is_subtype(erase_typevars(template), actual)):
         return None

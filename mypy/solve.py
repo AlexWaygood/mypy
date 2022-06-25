@@ -38,6 +38,8 @@ def solve_constraints(vars: List[TypeVarId], constraints: List[Constraint],
         # bounds based on constraints. Note that we assume that the constraint
         # targets do not have constraint references.
         for c in cmap.get(tvar, []):
+            print(c.op)
+            print(c.target)
             if c.op == SUPERTYPE_OF:
                 if bottom is None:
                     bottom = c.target
@@ -48,7 +50,6 @@ def solve_constraints(vars: List[TypeVarId], constraints: List[Constraint],
                     top = c.target
                 else:
                     top = meet_types(top, c.target)
-
         top = get_proper_type(top)
         bottom = get_proper_type(bottom)
         if isinstance(top, AnyType) or isinstance(bottom, AnyType):

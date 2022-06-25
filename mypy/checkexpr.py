@@ -1040,8 +1040,10 @@ class ExpressionChecker(ExpressionVisitor[Type]):
             callee = freshen_function_type_vars(callee)
             callee = self.infer_function_type_arguments_using_context(
                 callee, context)
+            print('good', callee)
             callee = self.infer_function_type_arguments(
                 callee, args, arg_kinds, formal_to_actual, context)
+            print('bad', callee)
             if need_refresh:
                 # Argument kinds etc. may have changed due to
                 # ParamSpec variables being replaced with an arbitrary
@@ -1067,7 +1069,6 @@ class ExpressionChecker(ExpressionVisitor[Type]):
 
         self.check_argument_count(callee, arg_types, arg_kinds,
                                   arg_names, formal_to_actual, context)
-
         self.check_argument_types(arg_types, arg_kinds, args, callee, formal_to_actual, context,
                                   object_type=object_type)
 
@@ -1256,6 +1257,7 @@ class ExpressionChecker(ExpressionVisitor[Type]):
         Return a derived callable type that has the arguments applied.
         """
         if self.chk.in_checked_function():
+            print('here')
             # Disable type errors during type inference. There may be errors
             # due to partial available context information at this time, but
             # these errors can be safely ignored as the arguments will be
