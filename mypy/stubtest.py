@@ -230,11 +230,29 @@ def verify_mypyfile(
         yield Error(object_path, "is not a module", stub, runtime)
         return
 
+    def _is_checkable_stub_object(name: str, stub_node: nodes.SymbolTableNode, runtime: types.ModuleType) -> bool:
+        if stub_node.module_hidden:
+            return False
+        if hasattr(runtime, name):
+            return True
+        if not is_probably_private_name(name):
+            return True
+        ast_node = stub_node.node
+        # Okay, it's a private name that doesn't exist at runtime...
+        if isinstance(ast_node, (nodes.TypeAlias, nodes.TypeVarLikeExpr)):
+            return False
+        if isinstance(ast_node, nodes.TypeInfo) and ast_node.is_protocol:
+            return False
+#        print(name)
+#        print(stub_node)
+#        print(type(stub_node))
+        return True
+
     # Check things in the stub
     to_check = {
-        m
-        for m, o in stub.names.items()
-        if not o.module_hidden and (not is_probably_private(m) or hasattr(runtime, m))
+        name
+        for name, node in stub.names.items()
+        if _is_checkable_stub_object(name, node, runtime)
     }
 
     def _belongs_to_runtime(r: types.ModuleType, attr: str) -> bool:
@@ -253,7 +271,7 @@ def verify_mypyfile(
         else [
             m
             for m in dir(runtime)
-            if not is_probably_private(m)
+            if not is_probably_private_name(m)
             # Ensure that the object's module is `runtime`, since in the absence of __all__ we
             # don't have a good way to detect re-exports at runtime.
             and _belongs_to_runtime(runtime, m)
@@ -320,7 +338,7 @@ def verify_typeinfo(
         # cast to workaround mypyc complaints
         m
         for m in cast(Any, vars)(runtime)
-        if not is_probably_private(m) and m not in IGNORABLE_CLASS_DUNDERS
+        if not is_probably_private_name(m) and m not in IGNORABLE_CLASS_DUNDERS
     )
 
     for entry in sorted(to_check):
@@ -1107,7 +1125,7 @@ IGNORABLE_CLASS_DUNDERS = frozenset(
 )
 
 
-def is_probably_private(name: str) -> bool:
+def is_probably_private_name(name: str) -> bool:
     return name.startswith("_") and not is_dunder(name)
 
 
