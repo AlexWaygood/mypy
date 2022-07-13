@@ -241,7 +241,11 @@ def verify_mypyfile(
         # Okay, it's a private name that doesn't exist at runtime...
         if isinstance(ast_node, (nodes.TypeAlias, nodes.TypeVarLikeExpr)):
             return False
-        if isinstance(ast_node, nodes.TypeInfo) and ast_node.is_protocol:
+        if isinstance(ast_node, nodes.TypeInfo) and (
+            ast_node.is_protocol
+            or ast_node.is_newtype
+            or ast_node.typeddict_type is not None
+        ):
             return False
 #        print(name)
 #        print(stub_node)
