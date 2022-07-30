@@ -205,7 +205,7 @@ def test_module(module_name: str) -> Iterator[Error]:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         try:
-            yield from verify(stub, runtime, [module_name])
+            yield from verify(stub, runtime, runtime, [module_name])
         except Exception as e:
             bottom_frame = list(traceback.walk_tb(e.__traceback__))[-1][0]
             bottom_module = bottom_frame.f_globals.get("__name__", "")
@@ -230,7 +230,10 @@ def test_module(module_name: str) -> Iterator[Error]:
 
 @singledispatch
 def verify(
-    stub: MaybeMissing[nodes.Node], runtime: MaybeMissing[Any], object_path: List[str]
+    stub: MaybeMissing[nodes.Node],
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     """Entry point for comparing a stub to a runtime object.
 
@@ -245,7 +248,10 @@ def verify(
 
 @verify.register(nodes.MypyFile)
 def verify_mypyfile(
-    stub: nodes.MypyFile, runtime: MaybeMissing[types.ModuleType], object_path: List[str]
+    stub: nodes.MypyFile,
+    runtime: MaybeMissing[types.ModuleType],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime)
@@ -295,11 +301,12 @@ def verify_mypyfile(
         assert stub_entry is not None
         try:
             runtime_entry = getattr(runtime, entry, MISSING)
+            static_runtime = inspect.getattr_static(runtime, entry, MISSING)
         except Exception:
             # Catch all exceptions in case the runtime raises an unexpected exception
             # from __getattr__ or similar.
             continue
-        yield from verify(stub_entry, runtime_entry, object_path + [entry])
+        yield from verify(stub_entry, runtime_entry, static_runtime, object_path + [entry])
 
 
 if sys.version_info >= (3, 7):
@@ -310,7 +317,10 @@ else:
 
 @verify.register(nodes.TypeInfo)
 def verify_typeinfo(
-    stub: nodes.TypeInfo, runtime: MaybeMissing[Type[Any]], object_path: List[str]
+    stub: nodes.TypeInfo,
+    runtime: MaybeMissing[Type[Any]],
+    static_runtime: MaybeMissing[Type[Any]],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime, stub_desc=repr(stub))
@@ -368,6 +378,7 @@ def verify_typeinfo(
                 runtime_attr = getattr(runtime, mangled_entry)
             except AttributeError:
                 runtime_attr = inspect.getattr_static(runtime, mangled_entry, MISSING)
+            static_runtime_attr = inspect.getattr_static(runtime, mangled_entry, MISSING)
         except Exception:
             # Catch all exceptions in case the runtime raises an unexpected exception
             # from __getattr__ or similar.
@@ -381,11 +392,13 @@ def verify_typeinfo(
             and isinstance(runtime_attr, _WrapperDescriptorType)
             and is_dunder(mangled_entry, exclude_special=True)
         ):
-            yield from verify(stub_to_verify, runtime_attr, object_path + [entry])
+            yield from verify(
+                stub_to_verify, runtime_attr, static_runtime_attr, object_path + [entry]
+            )
 
 
 def _verify_static_class_methods(
-    stub: nodes.FuncBase, runtime: Any, object_path: List[str]
+    stub: nodes.FuncBase, runtime: Any, static_runtime: Any, object_path: List[str]
 ) -> Iterator[str]:
     if stub.name in ("__new__", "__init_subclass__", "__class_getitem__"):
         # Special cased by Python, so don't bother checking
@@ -400,16 +413,9 @@ def _verify_static_class_methods(
             yield "stub is a classmethod but runtime is not"
         return
 
-    # Look the object up statically, to avoid binding by the descriptor protocol
-    static_runtime = importlib.import_module(object_path[0])
-    for entry in object_path[1:]:
-        try:
-            static_runtime = inspect.getattr_static(static_runtime, entry)
-        except AttributeError:
-            # This can happen with mangled names, ignore for now.
-            # TODO: pass more information about ancestors of nodes/objects to verify, so we don't
-            # have to do this hacky lookup. Would be useful in a couple other places too.
-            return
+    # Use static_runtime, to avoid binding with the descriptor protocol
+    if isinstance(static_runtime, Missing):
+        return
 
     if isinstance(static_runtime, classmethod) and not stub.is_class:
         yield "runtime is a classmethod but stub is not"
@@ -769,7 +775,10 @@ def _verify_signature(
 
 @verify.register(nodes.FuncItem)
 def verify_funcitem(
-    stub: nodes.FuncItem, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.FuncItem,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime)
@@ -780,7 +789,7 @@ def verify_funcitem(
         if not callable(runtime):
             return
 
-    for message in _verify_static_class_methods(stub, runtime, object_path):
+    for message in _verify_static_class_methods(stub, runtime, static_runtime, object_path):
         yield Error(object_path, "is inconsistent, " + message, stub, runtime)
 
     signature = safe_inspect_signature(runtime)
@@ -822,14 +831,20 @@ def verify_funcitem(
 
 @verify.register(Missing)
 def verify_none(
-    stub: Missing, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: Missing,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     yield Error(object_path, "is not present in stub", stub, runtime)
 
 
 @verify.register(nodes.Var)
 def verify_var(
-    stub: nodes.Var, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.Var,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         # Don't always yield an error here, because we often can't find instance variables
@@ -866,7 +881,10 @@ def verify_var(
 
 @verify.register(nodes.OverloadedFuncDef)
 def verify_overloadedfuncdef(
-    stub: nodes.OverloadedFuncDef, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.OverloadedFuncDef,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime)
@@ -883,7 +901,7 @@ def verify_overloadedfuncdef(
         if not callable(runtime):
             return
 
-    for message in _verify_static_class_methods(stub, runtime, object_path):
+    for message in _verify_static_class_methods(stub, runtime, static_runtime, object_path):
         yield Error(object_path, "is inconsistent, " + message, stub, runtime)
 
     signature = safe_inspect_signature(runtime)
@@ -912,7 +930,10 @@ def verify_overloadedfuncdef(
 
 @verify.register(nodes.TypeVarExpr)
 def verify_typevarexpr(
-    stub: nodes.TypeVarExpr, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.TypeVarExpr,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         # We seem to insert these typevars into NamedTuple stubs, but they
@@ -928,7 +949,10 @@ def verify_typevarexpr(
 
 @verify.register(nodes.ParamSpecExpr)
 def verify_paramspecexpr(
-    stub: nodes.ParamSpecExpr, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.ParamSpecExpr,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime)
@@ -941,28 +965,6 @@ def verify_paramspecexpr(
     if not paramspec_types or not isinstance(runtime, paramspec_types):
         yield Error(object_path, "is not a ParamSpec", stub, runtime)
         return
-
-
-def _verify_readonly_property(stub: nodes.Decorator, runtime: Any) -> Iterator[str]:
-    assert stub.func.is_property
-    if isinstance(runtime, property):
-        return
-    if inspect.isdatadescriptor(runtime):
-        # It's enough like a property...
-        return
-    # Sometimes attributes pretend to be properties, for instance, to express that they
-    # are read only. So allowlist if runtime_type matches the return type of stub.
-    runtime_type = get_mypy_type_of_runtime_value(runtime)
-    func_type = (
-        stub.func.type.ret_type if isinstance(stub.func.type, mypy.types.CallableType) else None
-    )
-    if (
-        runtime_type is not None
-        and func_type is not None
-        and is_subtype_helper(runtime_type, func_type)
-    ):
-        return
-    yield "is inconsistent, cannot reconcile @property on stub with runtime object"
 
 
 def _resolve_funcitem_from_decorator(dec: nodes.OverloadPart) -> Optional[nodes.FuncItem]:
@@ -1015,24 +1017,35 @@ def _resolve_funcitem_from_decorator(dec: nodes.OverloadPart) -> Optional[nodes.
 
 @verify.register(nodes.Decorator)
 def verify_decorator(
-    stub: nodes.Decorator, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.Decorator,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime)
         return
     if stub.func.is_property:
-        for message in _verify_readonly_property(stub, runtime):
-            yield Error(object_path, message, stub, runtime)
+        if not (isinstance(static_runtime, property) or inspect.isdatadescriptor(static_runtime)):
+            yield Error(
+                object_path,
+                "is inconsistent, cannot reconcile @property on stub with runtime object",
+                stub,
+                runtime,
+            )
         return
 
     func = _resolve_funcitem_from_decorator(stub)
     if func is not None:
-        yield from verify(func, runtime, object_path)
+        yield from verify(func, runtime, static_runtime, object_path)
 
 
 @verify.register(nodes.TypeAlias)
 def verify_typealias(
-    stub: nodes.TypeAlias, runtime: MaybeMissing[Any], object_path: List[str]
+    stub: nodes.TypeAlias,
+    runtime: MaybeMissing[Any],
+    static_runtime: MaybeMissing[Any],
+    object_path: List[str],
 ) -> Iterator[Error]:
     stub_target = mypy.types.get_proper_type(stub.target)
     stub_desc = f"Type alias for {stub_target}"
@@ -1073,7 +1086,7 @@ def verify_typealias(
         # Okay, either we couldn't construct a fullname
         # or the fullname of the stub didn't match the fullname of the runtime.
         # Fallback to a full structural check of the runtime vis-a-vis the stub.
-        yield from verify(stub_origin, runtime_origin, object_path)
+        yield from verify(stub_origin, runtime_origin, runtime_origin, object_path)
         return
     if isinstance(stub_target, mypy.types.UnionType):
         # complain if runtime is not a Union or UnionType

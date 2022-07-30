@@ -559,21 +559,9 @@ class StubtestUnit(unittest.TestCase):
         )
         yield Case(
             stub="""
-            class GoodReadOnly:
-                @property
-                def f(self) -> int: ...
-            """,
-            runtime="""
-            class GoodReadOnly:
-                f = 1
-            """,
-            error=None,
-        )
-        yield Case(
-            stub="""
             class BadReadOnly:
                 @property
-                def f(self) -> str: ...
+                def f(self) -> int: ...
             """,
             runtime="""
             class BadReadOnly:
@@ -630,6 +618,29 @@ class StubtestUnit(unittest.TestCase):
 
             class FineAndDandy:
                 attr = _EvilDescriptor()
+            """,
+            error=None,
+        )
+        yield Case(
+            stub="""
+            class Liar: ...
+
+            class AlsoCool:
+                @property
+                def attr(self) -> Liar: ...
+            """,
+            runtime="""
+            class Liar:
+                __module__ = 'builtins'
+
+            class _ClassProperty:
+                def __get__(self, instance, ownerclass=None):
+                    return Liar()
+                def __set__(self, instance, value):
+                    raise AttributeError('no')
+
+            class AlsoCool:
+                attr = _ClassProperty()
             """,
             error=None,
         )
