@@ -932,6 +932,25 @@ class StubtestUnit(unittest.TestCase):
         yield Case(
             stub="""
             import enum
+            class Y(enum.IntEnum):
+                foo: int
+                spam: str
+            """,
+            runtime="""
+            import enum
+            class Y(enum.IntEnum):
+                def __new__(cls, val, spam):
+                    obj = int.__new__(cls, val)
+                    obj._value_ = val
+                    obj.spam = spam
+                    return obj
+                foo = 1, 'foo'
+            """,
+            error="Y.spam",
+        )
+        yield Case(
+            stub="""
+            import enum
             class Z(enum.IntEnum):
                 foo: int
                 @property
