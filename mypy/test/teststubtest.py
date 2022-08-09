@@ -540,6 +540,70 @@ class StubtestUnit(unittest.TestCase):
             )
 
     @collect_cases
+    def test_eq_overrides(self) -> Iterator[Case]:
+        yield Case(
+            stub="""
+            class Good:
+                def __eq__(self, __other: object) -> bool: ...
+            class GoodSubclass1(Good):
+                def __eq__(self, __other: object) -> bool: ...
+            class GoodSubclass2(Good): ...
+            """,
+            runtime="""
+            class Good:
+                def __eq__(self, __other): return False
+            class GoodSubclass1(Good):
+                def __eq__(self, __other): return True
+            class GoodSubclass2(Good): ...
+            """,
+            error=None,
+        )
+        yield Case(
+            stub="class Bad1: ...",
+            runtime="""
+            class Bad1:
+                def __eq__(self, __other): return False
+            """,
+            error="Bad1.__eq__",
+        )
+        yield Case(
+            stub="""
+            class Bad2:
+                def __eq__(self, __other: object) -> bool: ...
+            """,
+            runtime="class Bad2: ...",
+            error="Bad2.__eq__",
+        )
+        yield Case(
+            stub="""
+            class Base1:
+                def __eq__(self, __other: object) -> bool: ...
+            class BadSubclass1(Base1): ...
+            """,
+            runtime="""
+            class Base1:
+                def __eq__(self, __other): return False
+            class BadSubclass1(Base1):
+                def __eq__(self, __other): return True
+            """,
+            error="BadSubclass1.__eq__",
+        )
+        yield Case(
+            stub="""
+            class Base2:
+                def __eq__(self, __other: object) -> bool: ...
+            class BadSubclass2(Base2):
+                def __eq__(self, __other: object) -> bool: ...
+            """,
+            runtime="""
+            class Base2:
+                def __eq__(self, __other): return False
+            class BadSubclass2(Base2): ...
+            """,
+            error="BadSubclass2.__eq__",
+        )
+
+    @collect_cases
     def test_property(self) -> Iterator[Case]:
         yield Case(
             stub="""

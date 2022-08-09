@@ -815,6 +815,35 @@ def _verify_signature(
         yield f'runtime does not have **kwargs argument "{stub.varkw.variable.name}"'
 
 
+def _verify_eq_method(stub: nodes.FuncItem, runtime: Any, object_path: List[str]) -> Iterator[Error]:
+    runtime_name = get_name_of_runtime(runtime)
+    if runtime_name is None:
+        return
+    try:
+        runtime_cls: type = runtime.__objclass__
+    except AttributeError:
+        return
+    try:
+        runtime_module: object = runtime_cls.__module__
+    except AttributeError:
+        return
+    if not isinstance(runtime_module, str):
+        return
+
+    runtime_fullname = f"{normalize_module(runtime_module)}.{runtime_name}"
+    if runtime_fullname != stub.fullname:
+        yield Error(
+            object_path,
+            (
+                "is inconsistent, runtime and the stub have different fullnames "
+                "(this probably means __eq__ is overridden at runtime "
+                "but not in the stub, or vice versa)"
+            ),
+            stub,
+            runtime,
+        )
+
+
 @verify.register(nodes.FuncItem)
 def verify_funcitem(
     stub: nodes.FuncItem, runtime: MaybeMissing[Any], object_path: List[str]
@@ -822,6 +851,11 @@ def verify_funcitem(
     if isinstance(runtime, Missing):
         yield Error(object_path, "is not present at runtime", stub, runtime)
         return
+
+    # special-case __eq__ methods,
+    # since overriding __eq__ in a subclass has special semantics for type checkers
+    if stub.name == "__eq__":
+        yield from _verify_eq_method(stub, runtime, object_path)
 
     if not is_probably_a_function(runtime):
         yield Error(object_path, "is not a function", stub, runtime)
@@ -1100,20 +1134,11 @@ def verify_typealias(
             return
 
         stub_origin = stub_target.type
-        # Do our best to figure out the fullname of the runtime object...
-        runtime_name: object
-        try:
-            runtime_name = runtime_origin.__qualname__
-        except AttributeError:
-            runtime_name = getattr(runtime_origin, "__name__", MISSING)
+        runtime_name = get_name_of_runtime(runtime_origin)
         if isinstance(runtime_name, str):
             runtime_module: object = getattr(runtime_origin, "__module__", MISSING)
             if isinstance(runtime_module, str):
-                if runtime_module == "collections.abc" or (
-                    runtime_module == "re" and runtime_name in {"Match", "Pattern"}
-                ):
-                    runtime_module = "typing"
-                runtime_fullname = f"{runtime_module}.{runtime_name}"
+                runtime_fullname = f"{normalize_module(runtime_module)}.{runtime_name}"
                 if re.fullmatch(rf"_?{re.escape(stub_origin.fullname)}", runtime_fullname):
                     # Okay, we're probably fine.
                     return
@@ -1277,6 +1302,25 @@ def is_subtype_helper(left: mypy.types.Type, right: mypy.types.Type) -> bool:
 
     with mypy.state.state.strict_optional_set(True):
         return mypy.subtypes.is_subtype(left, right)
+
+
+def get_name_of_runtime(runtime: Any) -> Optional[str]:
+    try:
+        runtime_name: object = runtime.__qualname__
+    except AttributeError:
+        try:
+            runtime_name = runtime.__name__
+        except AttributeError:
+            return None
+    return runtime_name if isinstance(runtime_name, str) else None
+
+
+def normalize_module(module_name: str) -> str:
+    if module_name == "collections.abc" or (
+        module_name == "re" and module_name in {"Match", "Pattern"}
+    ):
+        return "typing"
+    return module_name
 
 
 def get_mypy_type_of_runtime_value(runtime: Any) -> Optional[mypy.types.Type]:
