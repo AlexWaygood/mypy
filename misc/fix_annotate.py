@@ -1,3 +1,5 @@
+# mypy: disable-error-code = "import,no-untyped-def,no-untyped-call,var-annotated"
+
 """Fixer for lib2to3 that inserts mypy annotations into all methods.
 
 The simplest way to run this is to copy it into lib2to3's "fixes"
@@ -37,7 +39,7 @@ from lib2to3.patcomp import compile_pattern
 from lib2to3.pytree import Leaf, Node
 
 
-class FixAnnotate(BaseFix):
+class FixAnnotate(BaseFix):  # type: ignore[misc,no-any-unimported]
 
     # This fixer is compatible with the bottom matcher.
     BM_compatible = True
@@ -50,7 +52,8 @@ class FixAnnotate(BaseFix):
               funcdef< 'def' name=any parameters< '(' [args=any] ')' > ':' suite=any+ >
               """
 
-    counter = None if not os.getenv("MAXFIXES") else int(os.getenv("MAXFIXES"))
+    _maxfixes = os.getenv("MAXFIXES")
+    counter = int(_maxfixes) if _maxfixes else None
 
     def transform(self, node, results):
         if FixAnnotate.counter is not None:

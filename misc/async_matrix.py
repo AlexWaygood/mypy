@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# mypy: disable-error-code=no-untyped-def
+
 """Test various combinations of generators/coroutines.
 
 This was used to cross-check the errors in the test case
@@ -9,7 +11,8 @@ from __future__ import annotations
 
 import sys
 from types import coroutine
-from typing import Any, Awaitable, Generator, Iterator
+from typing import Any, Awaitable, Coroutine, Generator, Iterator, Union, cast
+from typing_extensions import TypeAlias
 
 # The various things you might try to use in `await` or `yield from`.
 
@@ -105,6 +108,8 @@ async def decorated_host_coroutine(func) -> None:
 
 # Main driver.
 
+HostReturn: TypeAlias = Union[Generator[str, None, None], Coroutine[None, Any, Any]]
+
 
 def main() -> None:
     verbose = "-v" in sys.argv
@@ -126,7 +131,7 @@ def main() -> None:
         ]:
             print("  ---- Func:", func.__name__)
             try:
-                f = host(func)
+                f = cast(HostReturn, host(func))
                 for i in range(10):
                     try:
                         x = f.send(None)
