@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# mypy: disable-error-code=unreachable
+
 """Generator of dynamically typed draft stubs for arbitrary modules.
 
 The logic of this script can be split in three steps:

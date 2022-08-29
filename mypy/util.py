@@ -1,3 +1,5 @@
+# mypy: disable-error-code=unreachable
+
 """Utility functions with no non-trivial dependencies."""
 
 from __future__ import annotations

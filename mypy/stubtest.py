@@ -1,3 +1,5 @@
+# mypy: disable-error-code=unreachable
+
 """Tests for stubs.
 
 Verify that various things in stubs are consistent with how things behave at runtime.

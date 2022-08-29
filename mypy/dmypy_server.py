@@ -1,3 +1,5 @@
+# mypy: disable-error-code=unreachable
+
 """Server for mypy daemon mode.
 
 This implements a daemon process which keeps useful state in memory

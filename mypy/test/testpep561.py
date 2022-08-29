@@ -160,7 +160,7 @@ def parse_mypy_args(line: str) -> list[str]:
 
 def test_mypy_path_is_respected() -> None:
     assert False
-    packages = "packages"
+    packages = "packages"  # type: ignore[unreachable]
     pkg_name = "a"
     with tempfile.TemporaryDirectory() as temp_dir:
         old_dir = os.getcwd()

@@ -1,3 +1,5 @@
+# mypy: disable-error-code=unreachable
+
 """Facilities to analyze entire programs, including imported modules.
 
 Parse and analyze the source files of a program in the correct order

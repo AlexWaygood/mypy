@@ -200,7 +200,7 @@ class Node(Context):
     def __str__(self) -> str:
         ans = self.accept(mypy.strconv.StrConv())
         if ans is None:
-            return repr(self)
+            return repr(self)  # type: ignore[unreachable]
         return ans
 
     def accept(self, visitor: NodeVisitor[T]) -> T:
@@ -2936,7 +2936,7 @@ class TypeInfo(SymbolNode):
         for cls in self.mro:
             if name in cls.names:
                 node = cls.names[name].node
-                if isinstance(node, FuncBase):
+                if isinstance(node, SYMBOL_FUNCBASE_TYPES):
                     return node
                 elif isinstance(node, Decorator):  # Two `if`s make `mypyc` happy
                     return node
@@ -3635,7 +3635,7 @@ class SymbolTable(Dict[str, SymbolTableNode]):
                 ):
                     a.append("  " + str(key) + " : " + str(value))
             else:
-                a.append("  <invalid item>")
+                a.append("  <invalid item>")  # type: ignore[unreachable]
         a = sorted(a)
         a.insert(0, "SymbolTable(")
         a[-1] += ")"

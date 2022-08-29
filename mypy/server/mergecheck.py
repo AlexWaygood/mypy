@@ -29,7 +29,7 @@ def check_consistency(o: object) -> None:
         # Skip None names, since they are ambiguous.
         # TODO: Everything should have a proper full name?
         if fn is None:
-            continue
+            continue  # type: ignore[unreachable]
         # Skip stuff that should be expected to have duplicate names
         if isinstance(sym, (Var, Decorator)):
             continue
