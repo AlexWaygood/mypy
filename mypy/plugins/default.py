@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from functools import partial
-from typing import Callable
+from typing import Callable, TYPE_CHECKING
 
 from mypy import message_registry
 from mypy.nodes import DictExpr, IntExpr, StrExpr, UnaryExpr
@@ -458,10 +458,6 @@ def tuple_mul_callback(ctx: MethodContext) -> Type:
     arg_type = get_proper_type(ctx.arg_types[0][0])
     if isinstance(arg_type, Instance) and arg_type.last_known_value is not None:
         value = arg_type.last_known_value.value
-        if isinstance(value, int):
-            return ctx.type.copy_modified(items=ctx.type.items * value)
-    elif isinstance(ctx.type, LiteralType):
-        value = arg_type.value
         if isinstance(value, int):
             return ctx.type.copy_modified(items=ctx.type.items * value)
 

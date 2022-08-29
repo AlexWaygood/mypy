@@ -89,9 +89,6 @@ def _analyze_class(ctx: mypy.plugin.ClassDefContext) -> dict[str, _MethodInfo | 
         for name in _ORDERING_METHODS:
             if name in cls.names and name not in comparison_methods:
                 node = cls.names[name].node
-                if isinstance(node, FuncItem) and isinstance(node.type, CallableType):
-                    comparison_methods[name] = _MethodInfo(node.is_static, node.type)
-                    continue
 
                 if isinstance(node, Var):
                     proper_type = get_proper_type(node.type)

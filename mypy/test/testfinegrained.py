@@ -75,8 +75,7 @@ class FineGrainedSuite(DataSuite):
 
     def run_case(self, testcase: DataDrivenTestCase) -> None:
         if self.should_skip(testcase):
-            pytest.skip()
-            return
+            pytest.skip()  # raises an exception
 
         main_src = "\n".join(testcase.input)
         main_path = os.path.join(test_temp_dir, "main")
