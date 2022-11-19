@@ -352,10 +352,10 @@ above example:
 
 .. code-block:: python
 
-   shape = Circle() # type: Shape   # The variable s can be any Shape,
-                                    # not just Circle
+   shape: Shape = Circle()  # The variable s can be any Shape,
+                            # not just Circle
    ...
-   shape = Triangle()               # OK
+   shape = Triangle()       # OK
 
 Complex type tests
 ------------------
