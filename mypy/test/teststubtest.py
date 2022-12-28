@@ -937,6 +937,19 @@ class StubtestUnit(unittest.TestCase):
             """,
             error=None,
         )
+        # Only emit an error for the original class definition, not the alias
+        yield Case(
+            stub="""
+            class Alpha: ...
+            Beta = Alpha
+            """,
+            runtime="""
+            class Alpha:
+                def foo(self): pass
+            Beta = Alpha
+            """,
+            error="Alpha.foo",
+        )
         if sys.version_info >= (3, 10):
             yield Case(
                 stub="""

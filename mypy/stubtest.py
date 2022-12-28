@@ -23,7 +23,7 @@ import typing
 import typing_extensions
 import warnings
 from contextlib import redirect_stderr, redirect_stdout
-from functools import singledispatch
+from functools import lru_cache, singledispatch
 from pathlib import Path
 from typing import Any, Generic, Iterator, TypeVar, Union, cast
 from typing_extensions import get_origin
@@ -463,6 +463,12 @@ def verify_typeinfo(
     if not isinstance(runtime, type):
         yield Error(object_path, "is not a type", stub, runtime, stub_desc=repr(stub))
         return
+
+    if stub.module_name != object_path[-2]:
+        # The class originates from another module; try to limit emitting duplicate errors
+        assert isinstance(runtime, collections.abc.Hashable)
+        if stub_fullname_matches_runtime_fullname(stub, runtime):
+            return
 
     yield from _verify_final(stub, runtime, object_path)
     yield from _verify_metaclass(stub, runtime, object_path)
@@ -1215,27 +1221,13 @@ def verify_typealias(
             return
 
         stub_origin = stub_target.type
-        # Do our best to figure out the fullname of the runtime object...
-        runtime_name: object
-        try:
-            runtime_name = runtime_origin.__qualname__
-        except AttributeError:
-            runtime_name = getattr(runtime_origin, "__name__", MISSING)
-        if isinstance(runtime_name, str):
-            runtime_module: object = getattr(runtime_origin, "__module__", MISSING)
-            if isinstance(runtime_module, str):
-                if runtime_module == "collections.abc" or (
-                    runtime_module == "re" and runtime_name in {"Match", "Pattern"}
-                ):
-                    runtime_module = "typing"
-                runtime_fullname = f"{runtime_module}.{runtime_name}"
-                if re.fullmatch(rf"_?{re.escape(stub_origin.fullname)}", runtime_fullname):
-                    # Okay, we're probably fine.
-                    return
 
-        # Okay, either we couldn't construct a fullname
-        # or the fullname of the stub didn't match the fullname of the runtime.
-        # Fallback to a full structural check of the runtime vis-a-vis the stub.
+        # This function will also be called in verify_typealias,
+        # but only if the stub object is known to originate from another module.
+        # Call it here as well, in order to catch aliases of objects defined in the same module.
+        if stub_fullname_matches_runtime_fullname(stub_origin, runtime_origin):
+            return
+
         yield from verify(stub_origin, runtime_origin, object_path)
         return
     if isinstance(stub_target, mypy.types.UnionType):
@@ -1488,6 +1480,29 @@ def get_mypy_type_of_runtime_value(runtime: Any) -> mypy.types.Type | None:
         return fallback
 
     return mypy.types.LiteralType(value=value, fallback=fallback)
+
+
+@lru_cache(maxsize=1)
+def stub_fullname_matches_runtime_fullname(stub: nodes.TypeInfo, runtime: type) -> bool:
+    """Helper function for limiting duplicated errors for aliases and reexports."""
+    # Do our best to figure out the fullname of the runtime object...
+    runtime_name: object
+    try:
+        runtime_name = runtime.__qualname__
+    except AttributeError:
+        runtime_name = getattr(runtime, "__name__", MISSING)
+    if isinstance(runtime_name, str):
+        runtime_module: object = getattr(runtime, "__module__", MISSING)
+        if isinstance(runtime_module, str):
+            if runtime_module == "collections.abc" or (
+                runtime_module == "re" and runtime_name in {"Match", "Pattern"}
+            ):
+                runtime_module = "typing"
+            runtime_fullname = f"{runtime_module}.{runtime_name}"
+            if re.fullmatch(rf"_?{re.escape(stub.fullname)}", runtime_fullname):
+                # Okay, we're probably fine.
+                return True
+    return False
 
 
 # ====================
