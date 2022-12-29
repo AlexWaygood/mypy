@@ -11,7 +11,7 @@ from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
 from os import PathLike
 from types import FrameType, TracebackType
 from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
-from typing_extensions import Final, Literal, LiteralString, TypeAlias, final
+from typing_extensions import Final, Literal, LiteralString, Self as Self, TypeAlias, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -21,10 +21,6 @@ _VT_co = TypeVar("_VT_co", covariant=True)
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
-
-# Use for "self" annotations:
-#   def __enter__(self: Self) -> Self: ...
-Self = TypeVar("Self")  # noqa: Y001
 
 # covariant version of typing.AnyStr, useful for protocols
 AnyStr_co = TypeVar("AnyStr_co", str, bytes, covariant=True)  # noqa: Y001
