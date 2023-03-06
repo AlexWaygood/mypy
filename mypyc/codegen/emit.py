@@ -423,6 +423,7 @@ class Emitter:
             return "{}.empty_struct_error_flag {} {}".format(
                 tuple_expr_in_c, compare, c_type_compare_val(int_rprimitive)
             )
+        item_type = None
         if rtuple.error_overlap:
             i = 0
             item_type = rtuple.types[0]
@@ -431,8 +432,7 @@ class Emitter:
                 if not typ.error_overlap:
                     item_type = rtuple.types[i]
                     break
-            else:
-                assert False, "not expecting tuple with error overlap"
+        assert item_type is not None, "not expecting tuple with error overlap"
         if isinstance(item_type, RTuple):
             return self.tuple_undefined_check_cond(
                 item_type, tuple_expr_in_c + f".f{i}", c_type_compare_val, compare

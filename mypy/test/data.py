@@ -517,6 +517,8 @@ def expand_errors(input: list[str], output: list[str], fnam: str) -> None:
                     severity = "note"
                 elif m.group(1) == "W":
                     severity = "warning"
+                else:
+                    assert False
                 col = m.group("col")
                 message = m.group("message")
                 message = message.replace("\\#", "#")  # adds back escaped # character

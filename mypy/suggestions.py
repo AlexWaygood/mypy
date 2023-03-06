@@ -514,6 +514,7 @@ class SuggestionEngine:
     ) -> str:
         args: list[str] = []
         for i in range(len(arg_types)):
+            arg = None
             for kind, name, typ in zip(arg_kinds[i], arg_names[i], arg_types[i]):
                 arg = self.format_type(None, typ)
                 if kind == ARG_STAR:
@@ -523,6 +524,7 @@ class SuggestionEngine:
                 elif kind.is_named():
                     if name:
                         arg = f"{name}={arg}"
+            assert arg is not None
             args.append(arg)
         return f"({', '.join(args)})"
 

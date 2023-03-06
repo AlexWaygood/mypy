@@ -912,11 +912,11 @@ class MessageBuilder:
         for key in arg_type.items:
             if key not in callee.arg_names:
                 msg = f'Extra argument "{key}" from **args' + for_function(callee)
+                self.fail(msg, context)
                 break
         else:
             self.too_many_arguments(callee, context)
             return
-        self.fail(msg, context)
 
     def too_many_positional_arguments(self, callee: CallableType, context: Context) -> None:
         if self.prefer_simple_messages():
@@ -2550,12 +2550,14 @@ def format_type_distinctly(*types: Type, bare: bool = False) -> tuple[str, ...]:
     quoting them (such as prepending * or **) should use this.
     """
     overlapping = find_type_overlaps(*types)
+    strs = None
     for verbosity in range(2):
         strs = [
             format_type_inner(type, verbosity=verbosity, fullnames=overlapping) for type in types
         ]
         if len(set(strs)) == len(strs):
             break
+    assert strs is not None
     if bare:
         return tuple(strs)
     else:

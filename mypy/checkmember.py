@@ -344,6 +344,7 @@ def analyze_instance_member_access(
 
 def validate_super_call(node: FuncBase, mx: MemberContext) -> None:
     unsafe_super = False
+    impl = None
     if isinstance(node, FuncDef) and node.is_trivial_body:
         unsafe_super = True
         impl = node
@@ -352,6 +353,7 @@ def validate_super_call(node: FuncBase, mx: MemberContext) -> None:
             impl = node.impl if isinstance(node.impl, FuncDef) else node.impl.func
             unsafe_super = impl.is_trivial_body
     if unsafe_super:
+        assert impl is not None
         ret_type = (
             impl.type.ret_type
             if isinstance(impl.type, CallableType)

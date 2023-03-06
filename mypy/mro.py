@@ -47,6 +47,7 @@ def merge(seqs: list[list[TypeInfo]]) -> list[TypeInfo]:
     seqs = [s[:] for s in seqs]
     result: list[TypeInfo] = []
     while True:
+        head = None
         seqs = [s for s in seqs if s]
         if not seqs:
             return result
@@ -56,6 +57,7 @@ def merge(seqs: list[list[TypeInfo]]) -> list[TypeInfo]:
                 break
         else:
             raise MroError()
+        assert head is not None
         result.append(head)
         for s in seqs:
             if s[0] is head:

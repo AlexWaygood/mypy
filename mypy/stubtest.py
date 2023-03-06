@@ -944,12 +944,14 @@ def verify_funcitem(
     runtime_is_coroutine = inspect.iscoroutinefunction(runtime)
 
     if signature:
-        stub_sig = Signature.from_funcitem(stub)
-        runtime_sig = Signature.from_inspect_signature(signature)
-        runtime_sig_desc = f'{"async " if runtime_is_coroutine else ""}def {signature}'
-        stub_desc = str(stub_sig)
+        stub_sig: Signature[nodes.Argument] | None = Signature.from_funcitem(stub)
+        runtime_sig: Signature[inspect.Parameter] | None = Signature.from_inspect_signature(
+            signature
+        )
+        runtime_sig_desc: str | None = f'{"async " if runtime_is_coroutine else ""}def {signature}'
+        stub_desc: str | None = str(stub_sig)
     else:
-        runtime_sig_desc, stub_desc = None, None
+        stub_sig = runtime_sig = runtime_sig_desc = stub_desc = None
 
     # Don't raise an error if the stub is a coroutine, but the runtime isn't.
     # That results in false positives.
@@ -966,6 +968,9 @@ def verify_funcitem(
 
     if not signature:
         return
+
+    assert stub_sig is not None
+    assert runtime_sig is not None
 
     for message in _verify_signature(stub_sig, runtime_sig, function_name=stub.name):
         yield Error(

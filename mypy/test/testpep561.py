@@ -106,6 +106,8 @@ def test_pep561(testcase: DataDrivenTestCase) -> None:
                 for s in testcase.input:
                     f.write(f"{s}\n")
             cmd_line.append(program)
+        else:
+            program = None
 
         cmd_line.extend(["--no-error-summary", "--hide-error-codes"])
         if python_executable != sys.executable:
@@ -140,6 +142,7 @@ def test_pep561(testcase: DataDrivenTestCase) -> None:
             )
 
         if has_program:
+            assert program is not None
             os.remove(program)
 
 

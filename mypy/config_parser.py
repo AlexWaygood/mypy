@@ -220,6 +220,8 @@ def parse_config_file(
         config_files = tuple(config_files_iter)
 
     config_parser = configparser.RawConfigParser()
+    config_types = file_read = None
+    parser: MutableMapping[str, Any] | None = None
 
     for config_file in config_files:
         if not os.path.exists(config_file):
@@ -233,7 +235,7 @@ def parse_config_file(
                 if "mypy" not in toml_data:
                     continue
                 toml_data = {"mypy": toml_data["mypy"]}
-                parser: MutableMapping[str, Any] = destructure_overrides(toml_data)
+                parser = destructure_overrides(toml_data)
                 config_types = toml_config_types
             else:
                 config_parser.read(config_file)
@@ -242,6 +244,7 @@ def parse_config_file(
         except (tomllib.TOMLDecodeError, configparser.Error, ConfigTOMLValueError) as err:
             print(f"{config_file}: {err}", file=stderr)
         else:
+            assert parser is not None
             if config_file in defaults.SHARED_CONFIG_FILES and "mypy" not in parser:
                 continue
             file_read = config_file
@@ -249,6 +252,10 @@ def parse_config_file(
             break
     else:
         return
+
+    assert parser is not None
+    assert config_types is not None
+    assert file_read is not None
 
     os.environ["MYPY_CONFIG_FILE_DIR"] = os.path.dirname(os.path.abspath(config_file))
 

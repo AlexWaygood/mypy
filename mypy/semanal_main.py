@@ -182,10 +182,12 @@ def process_top_levels(graph: Graph, scc: list[str], patches: Patches) -> None:
     scc = list(reversed(scc))
 
     # Initialize ASTs and symbol tables.
+    state = None
     for id in scc:
         state = graph[id]
         assert state.tree is not None
         state.manager.semantic_analyzer.prepare_file(state.tree)
+    assert state is not None
 
     # Initially all namespaces in the SCC are incomplete (well they are empty).
     state.manager.incomplete_namespaces.update(scc)

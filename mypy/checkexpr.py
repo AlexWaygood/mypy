@@ -2042,6 +2042,7 @@ class ExpressionChecker(ExpressionVisitor[Type]):
         # Keep track of consumed tuple *arg items.
         mapper = ArgTypeExpander(self.argument_infer_context())
         for i, actuals in enumerate(formal_to_actual):
+            actual_types = actual_kinds = callee_arg_types = callee_arg_kinds = None
             orig_callee_arg_type = get_proper_type(callee.arg_types[i])
 
             # Checking the case that we have more than one item but the first argument
@@ -2106,6 +2107,10 @@ class ExpressionChecker(ExpressionVisitor[Type]):
                     callee_arg_types = [orig_callee_arg_type] * len(actuals)
                     callee_arg_kinds = [callee.arg_kinds[i]] * len(actuals)
 
+            assert actual_types is not None
+            assert actual_kinds is not None
+            assert callee_arg_types is not None
+            assert callee_arg_kinds is not None
             assert len(actual_types) == len(actuals) == len(actual_kinds)
 
             if len(callee_arg_types) != len(actual_types):
@@ -2115,6 +2120,7 @@ class ExpressionChecker(ExpressionVisitor[Type]):
 
             assert len(callee_arg_types) == len(actual_types)
             assert len(callee_arg_types) == len(callee_arg_kinds)
+
             for actual, actual_type, actual_kind, callee_arg_type, callee_arg_kind in zip(
                 actuals, actual_types, actual_kinds, callee_arg_types, callee_arg_kinds
             ):
@@ -3592,6 +3598,8 @@ class ExpressionChecker(ExpressionVisitor[Type]):
             right_map, left_map = self.chk.find_isinstance_check(e.left)
         elif e.op == "or":
             left_map, right_map = self.chk.find_isinstance_check(e.left)
+        else:
+            assert False
 
         # If left_map is None then we know mypy considers the left expression
         # to be redundant.
@@ -3635,6 +3643,8 @@ class ExpressionChecker(ExpressionVisitor[Type]):
         elif e.op == "or":
             restricted_left_type = true_only(expanded_left_type)
             result_is_left = not expanded_left_type.can_be_false
+        else:
+            assert False
 
         if isinstance(restricted_left_type, UninhabitedType):
             # The left operand can never be the result
@@ -4865,6 +4875,8 @@ class ExpressionChecker(ExpressionVisitor[Type]):
             t0 = time.perf_counter_ns()
             self.in_expression = True
             record_time = True
+        else:
+            t0 = None
         self.type_context.append(type_context)
         old_is_callee = self.is_callee
         self.is_callee = is_callee
@@ -4903,6 +4915,7 @@ class ExpressionChecker(ExpressionVisitor[Type]):
         else:
             result = typ
         if record_time:
+            assert t0 is not None
             self.per_line_checking_time_ns[node.line] += time.perf_counter_ns() - t0
             self.in_expression = False
         return result

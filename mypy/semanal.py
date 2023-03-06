@@ -3361,6 +3361,8 @@ class SemanticAnalyzer(
             type_name = "builtins.str"
         elif isinstance(value, float):
             type_name = "builtins.float"
+        else:
+            assert False
 
         typ = self.named_type_or_none(type_name)
         if typ and is_final:
@@ -5316,6 +5318,7 @@ class SemanticAnalyzer(
         defer.
         """
         implicit_name = False
+        implicit_node = None
         # 1a. Name declared using 'global x' takes precedence
         if name in self.global_decls[-1]:
             if name in self.globals:
@@ -5365,6 +5368,7 @@ class SemanticAnalyzer(
             self.name_not_defined(name, ctx)
         else:
             if implicit_name:
+                assert implicit_node is not None
                 return implicit_node
         return None
 
@@ -6087,6 +6091,7 @@ class SemanticAnalyzer(
 
     def current_symbol_table(self, escape_comprehensions: bool = False) -> SymbolTable:
         if self.is_func_scope():
+            names = None
             assert self.locals[-1] is not None
             if escape_comprehensions:
                 assert len(self.locals) == len(self.is_comprehension_stack)
