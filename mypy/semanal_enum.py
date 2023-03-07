@@ -5,7 +5,6 @@ This is conceptually part of mypy.semanal (semantic analyzer pass 2).
 
 from __future__ import annotations
 
-from typing import cast
 from typing_extensions import Final
 
 from mypy.nodes import (
@@ -29,7 +28,7 @@ from mypy.nodes import (
     Var,
 )
 from mypy.options import Options
-from mypy.semanal_shared import SemanticAnalyzerInterface
+from mypy.semanal_shared import SemanticAnalyzerInterface, is_sequence_of_StrExprs
 from mypy.types import ENUM_REMOVED_PROPS, LiteralType, get_proper_type
 
 # Note: 'enum.EnumMeta' is deliberately excluded from this list. Classes that directly use
@@ -108,7 +107,8 @@ class EnumCallAnalyzer:
             # Error. Construct dummy return value.
             info = self.build_enum_call_typeinfo(var_name, [], fullname, node.line)
         else:
-            name = cast(StrExpr, call.args[0]).value
+            assert isinstance(call.args[0], StrExpr)
+            name = call.args[0].value
             if name != var_name or is_func_scope:
                 # Give it a unique name derived from the line number.
                 name += "@" + str(call.line)
@@ -177,8 +177,8 @@ class EnumCallAnalyzer:
                 items.append(field)
         elif isinstance(names, (TupleExpr, ListExpr)):
             seq_items = names.items
-            if all(isinstance(seq_item, StrExpr) for seq_item in seq_items):
-                items = [cast(StrExpr, seq_item).value for seq_item in seq_items]
+            if is_sequence_of_StrExprs(seq_items):
+                items = [seq_item.value for seq_item in seq_items]
             elif all(
                 isinstance(seq_item, (TupleExpr, ListExpr))
                 and len(seq_item.items) == 2

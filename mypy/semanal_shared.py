@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Callable, overload
-from typing_extensions import Final, Literal, Protocol
+from typing import Callable, Iterable, overload
+from typing_extensions import Final, Literal, Protocol, TypeGuard
 
 from mypy_extensions import trait
 
@@ -21,6 +21,7 @@ from mypy.nodes import (
     Node,
     OverloadedFuncDef,
     RefExpr,
+    StrExpr,
     SymbolNode,
     SymbolTable,
     SymbolTableNode,
@@ -55,6 +56,10 @@ ALLOW_INCOMPATIBLE_OVERRIDE: Final = ("__slots__", "__deletable__", "__match_arg
 
 # Fix fallbacks (does joins)
 PRIORITY_FALLBACKS: Final = 1
+
+
+def is_sequence_of_StrExprs(obj: Iterable[object]) -> TypeGuard[Iterable[StrExpr]]:
+    return all(isinstance(item, StrExpr) for item in obj)
 
 
 @trait
