@@ -1963,7 +1963,9 @@ class TypeChecker(NodeVisitor[None], CheckerPluginInterface):
                 # of the superclass? However if you get to that point you're in murky type
                 # territory anyway, so we just preserve the type and have the behaviour match
                 # that of older versions of mypy.
-                if filtered_items:
+                if len(filtered_items) == 1:
+                    mapped_typ = filtered_items[0]
+                elif filtered_items:
                     mapped_typ = Overloaded(filtered_items)
 
             return bind_self(mapped_typ, active_self_type, is_class_method)
