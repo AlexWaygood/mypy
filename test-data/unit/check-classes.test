@@ -7819,3 +7819,10 @@ class D:
         # and that's what matters.
         a, b = self.f()  # E: "C" has no attribute "__iter__" (not iterable)
 [builtins fixtures/tuple.pyi]
+
+[case testGetAttrDoesNotMakeObjectAContextManager]
+class C:
+    def __getattr__(self, name): ...
+
+with C():
+    ...
