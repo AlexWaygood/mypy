@@ -388,6 +388,26 @@ class StubtestUnit(unittest.TestCase):
             runtime="def f10(text = [1, 2]): pass",
             error=None,
         )
+        yield Case(
+            stub="def f11(obj: float = 1.1) -> None: ...",
+            runtime="def f11(obj=1.1): pass",
+            error=None,
+        )
+        yield Case(
+            stub="def f12(obj: float = 0.0) -> None: ...",
+            runtime="def f12(obj=-0.0): pass",
+            error="f12",
+        )
+        yield Case(
+            stub="def f13(do_thing: bool = True) -> None: ...",
+            runtime="def f13(do_thing=1): pass",
+            error=None,
+        )
+        yield Case(
+            stub="def f14(do_thing: bool = False) -> None: ...",
+            runtime="def f14(do_thing=0): pass",
+            error=None,
+        )
 
     @collect_cases
     def test_static_class_method(self) -> Iterator[Case]:

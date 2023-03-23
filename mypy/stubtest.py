@@ -624,9 +624,15 @@ def _verify_arg_default_value(
                     and stub_default is not ...
                     and (
                         stub_default != runtime_arg.default
-                        # We want the types to match exactly, e.g. in case the stub has
-                        # True and the runtime has 1 (or vice versa).
-                        or type(stub_default) is not type(runtime_arg.default)  # noqa: E721
+                        # This catches some edge cases -- e.g. -0.0 == +0.0, but the reprs differ
+                        or repr(stub_default) != repr(runtime_arg.default)
+                        # We want the types to match exactly,
+                        # BUT special-case instances where the stub has a boolean default
+                        # and the runtime has an int default
+                        or (
+                            type(stub_default) is not type(runtime_arg.default)
+                            and (type(stub_default), type(runtime_arg.default)) != (bool, int)
+                        )
                     )
                 ):
                     yield (
