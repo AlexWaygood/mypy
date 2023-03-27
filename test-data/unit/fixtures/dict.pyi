@@ -1,7 +1,7 @@
 # Builtins stub used in dictionary-related test cases.
 
 from typing import (
-    TypeVar, Generic, Iterable, Iterator, Mapping, Tuple, overload, Optional, Union, Sequence
+    Any, TypeVar, Generic, Iterable, Iterator, Mapping, Tuple, overload, Optional, Union, Sequence
 )
 
 T = TypeVar('T')
@@ -14,7 +14,7 @@ class object:
     def __eq__(self, other: object) -> bool: pass
 
 class type:
-    __annotations__: Mapping[str, object]
+    __annotations__: dict[str, Any]
 
 class dict(Mapping[KT, VT]):
     @overload
