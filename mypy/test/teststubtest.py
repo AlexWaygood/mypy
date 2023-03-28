@@ -815,13 +815,44 @@ class StubtestUnit(unittest.TestCase):
             G = str | int
             H = Union[str, bool]
             I = str | int
+            MoreComplex = str | dict[int, int]
+            TupleUnion = str | tuple[int, int]
+            VariadicTupleUnion = str | tuple[int, ...]
+            CallableUnion = Union[str, Callable[[int], str]]
             """,
             runtime="""
             G = Union[str, int]
             H = Union[str, bool]
             I = str
+            MoreComplex = Union[str, Dict[int, int]]
+            TupleUnion = Union[str, Tuple[int, int]]
+            VariadicTupleUnion = Union[str, Tuple[int, ...]]
+            CallableUnion = Union[str, Callable[[int], str]]
             """,
             error="I",
+        )
+        yield Case(
+            stub="BadUnion = str | int", runtime="BadUnion = Union[str, bytes]", error="BadUnion"
+        )
+        yield Case(
+            stub="BadUnion1 = str | dict[int, int]",
+            runtime="BadUnion1 = Union[str, List[int]]",
+            error="BadUnion1"
+        )
+        yield Case(
+            stub="BadUnion2 = str | tuple[int, int]",
+            runtime="BadUnion2 = Union[str, List[int]]",
+            error="BadUnion2"
+        )
+        yield Case(
+            stub="BadUnion3 = str | tuple[int, ...]",
+            runtime="BadUnion3 = Union[str, List[int]]",
+            error="BadUnion3"
+        )
+        yield Case(
+            stub="BadUnion4 = str | Callable[[int], str]",
+            runtime="BadUnion4 = Union[str, List[int]]",
+            error="BadUnion4"
         )
         yield Case(
             stub="""

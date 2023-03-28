@@ -26,7 +26,7 @@ from contextlib import redirect_stderr, redirect_stdout
 from functools import singledispatch
 from pathlib import Path
 from typing import Any, Generic, Iterator, TypeVar, Union
-from typing_extensions import get_origin
+from typing_extensions import get_args, get_origin
 
 import mypy.build
 import mypy.modulefinder
@@ -1300,7 +1300,23 @@ def verify_typealias(
             not (sys.version_info >= (3, 10) and isinstance(runtime, types.UnionType))
         ):
             yield Error(object_path, "is not a Union", stub, runtime, stub_desc=str(stub_target))
-        # could check Union contents here...
+
+        for stub_item, runtime_item in zip(stub_target.items, get_args(runtime)):
+            for error in verify(stub_item, runtime_item, object_path):
+                discrepancy_in_items = True
+                break
+        else:
+            discrepancy_in_items = False
+
+        if discrepancy_in_items:
+            yield Error(
+                object_path,
+                "is inconsistent: union members differ at runtime",
+                stub,
+                runtime,
+                stub_desc=str(stub_target)
+            )
+
         return
     if isinstance(stub_target, mypy.types.TupleType):
         if tuple not in getattr(runtime_origin, "__mro__", ()):
