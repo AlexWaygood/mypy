@@ -604,11 +604,11 @@ from typing_extensions import TypeGuard
 class Z:
     def typeguard1(self, *, x: object) -> TypeGuard[int]:  # line 4
         ...
-    
+
     @staticmethod
     def typeguard2(x: object) -> TypeGuard[int]:
         ...
-    
+
     @staticmethod  # line 11
     def typeguard3(*, x: object) -> TypeGuard[int]:
         ...
