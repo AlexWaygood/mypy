@@ -11,6 +11,7 @@ requires = [
     "typed_ast>=1.4.0,<2; python_version<'3.8'",
     "tomli>=1.1.0; python_version<'3.11'",
     # the following is from build-requirements.txt
+    "lxml-stubs",
     "types-psutil",
     "types-setuptools",
     "types-typed-ast>=1.5.8.5,<1.6.0",

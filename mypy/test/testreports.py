@@ -6,23 +6,27 @@ import textwrap
 from mypy.report import CoberturaPackage, get_line_rate
 from mypy.test.helpers import Suite, assert_equal
 
-try:
-    import lxml  # type: ignore[import]
-except ImportError:
-    lxml = None
-
 import pytest
+
+try:
+    import lxml
+except ImportError:
+    skip_if_lxml_unavailable = pytest.mark.skipif(False, reason="")
+else:
+    skip_if_lxml_unavailable = pytest.mark.skipif(
+        True, reason="Cannot import lxml. Is it installed?"
+    )
 
 
 class CoberturaReportSuite(Suite):
-    @pytest.mark.skipif(lxml is None, reason="Cannot import lxml. Is it installed?")
+    @skip_if_lxml_unavailable
     def test_get_line_rate(self) -> None:
         assert_equal("1.0", get_line_rate(0, 0))
         assert_equal("0.3333", get_line_rate(1, 3))
 
-    @pytest.mark.skipif(lxml is None, reason="Cannot import lxml. Is it installed?")
+    @skip_if_lxml_unavailable
     def test_as_xml(self) -> None:
-        import lxml.etree as etree  # type: ignore[import]
+        import lxml.etree as etree
 
         cobertura_package = CoberturaPackage("foobar")
         cobertura_package.covered_lines = 21
