@@ -4036,7 +4036,7 @@ class B(A):
 
 [builtins fixtures/dataclasses.pyi]
 [out1]
-main:3: error: Argument 2 to "B" has incompatible type "str"; expected "int"
+main:2: error: Argument 2 to "B" has incompatible type "str"; expected "int"
 
 [out2]
 [rechecked b]

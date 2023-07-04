@@ -743,7 +743,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out]
 ==
-main:3: error: Missing positional argument "b" in call to "B"
+main:2: error: Missing positional argument "b" in call to "B"
 
 [case testDataclassUpdate4]
 from b import B
@@ -769,7 +769,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out]
 ==
-main:3: error: Missing positional argument "b" in call to "B"
+main:2: error: Missing positional argument "b" in call to "B"
 
 [case testDataclassUpdate5]
 from b import B
@@ -802,7 +802,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out]
 ==
-main:3: error: Missing positional argument "b" in call to "B"
+main:2: error: Missing positional argument "b" in call to "B"
 ==
 
 [case testDataclassUpdate6]
@@ -828,7 +828,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out]
 ==
-main:3: error: Unsupported left operand type for < ("B")
+main:2: error: Unsupported left operand type for < ("B")
 
 [case testDataclassUpdate8]
 from c import C
@@ -860,7 +860,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out]
 ==
-main:3: error: Missing positional argument "c" in call to "C"
+main:2: error: Missing positional argument "c" in call to "C"
 
 [case testDataclassUpdate9]
 from c import C
@@ -899,7 +899,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out]
 ==
-main:3: error: Missing positional argument "c" in call to "C"
+main:2: error: Missing positional argument "c" in call to "C"
 ==
 
 [case testAttrsUpdate1]

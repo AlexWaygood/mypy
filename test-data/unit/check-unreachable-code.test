@@ -422,6 +422,7 @@ x = 1
 [out]
 
 [case testCustomSysVersionInfo]
+# flags: --python-version 3.5
 import sys
 if sys.version_info == (3, 5):
     x = "foo"
@@ -430,7 +431,6 @@ else:
 reveal_type(x)  # N: Revealed type is "builtins.str"
 [builtins fixtures/ops.pyi]
 [out]
-main:6: note: Revealed type is "builtins.int"
 
 [case testCustomSysVersionInfo2]
 import sys
