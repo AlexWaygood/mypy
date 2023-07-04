@@ -294,11 +294,11 @@ from dataclasses import dataclass, field
 @dataclass
 class Person:
     name: str
-    age: int = field(init=None)  # E: No overload variant of "field" matches argument type "None" \
-                                 # N: Possible overload variants: \
-                                 # N:     def [_T] field(*, default: _T, init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> _T \
-                                 # N:     def [_T] field(*, default_factory: Callable[[], _T], init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> _T \
-                                 # N:     def field(*, init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> Any
+    age: int = field(init=None)
+
+
+
+
 
 [builtins fixtures/dataclasses.pyi]
 
@@ -565,7 +565,7 @@ from dataclasses import dataclass
 @dataclass
 class Foo:
     bar: str
-    @classmethod  # E: Name "bar" already defined on line 7
+    @classmethod  # E: Name "bar" already defined on line 6
     def bar(cls) -> "Foo":
         return cls('asdf')
 [builtins fixtures/dataclasses.pyi]
@@ -1282,7 +1282,7 @@ from dataclasses import dataclass
 @dataclass
 class A:
     x: int = 0
-    x: int = 0  # E: Name "x" already defined on line 7
+    x: int = 0  # E: Name "x" already defined on line 6
 
 @dataclass
 class B(A):
@@ -1376,12 +1376,12 @@ from dataclasses import dataclass, field
 class Foo:
     bar: float = field(**{"repr": False})
 [out]
-main:7: error: Unpacking **kwargs in "field()" is not supported
-main:7: error: No overload variant of "field" matches argument type "Dict[str, bool]"
-main:7: note: Possible overload variants:
-main:7: note:     def [_T] field(*, default: _T, init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> _T
-main:7: note:     def [_T] field(*, default_factory: Callable[[], _T], init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> _T
-main:7: note:     def field(*, init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> Any
+main:6: error: Unpacking **kwargs in "field()" is not supported
+main:6: error: No overload variant of "field" matches argument type "Dict[str, bool]"
+main:6: note: Possible overload variants:
+main:6: note:     def [_T] field(*, default: _T, init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> _T
+main:6: note:     def [_T] field(*, default_factory: Callable[[], _T], init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> _T
+main:6: note:     def field(*, init: bool = ..., repr: bool = ..., hash: Optional[bool] = ..., compare: bool = ..., metadata: Optional[Mapping[str, Any]] = ..., kw_only: bool = ...) -> Any
 [builtins fixtures/dataclasses.pyi]
 
 [case testDataclassFieldWithPositionalArguments]

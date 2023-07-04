@@ -2574,8 +2574,8 @@ class C: pass
 import m
 import n
 
-x: m.n.C # E: Name "m.n.C" is not defined
-y: n.D # E: Name "n.D" is not defined
+x: m.n.C
+y: n.D
 [file m.py]
 import n
 [file n.py]

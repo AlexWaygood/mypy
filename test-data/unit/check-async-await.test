@@ -244,10 +244,10 @@ async def wrong_iterable(obj: Iterable[int]):
     {i: i for i in asyncify(obj)}
 
 [out]
-main:18: error: "Iterable[int]" has no attribute "__aiter__" (not async iterable)
-main:19: error: "asyncify[int]" has no attribute "__iter__"; maybe "__aiter__"? (not iterable)
-main:20: error: "Iterable[int]" has no attribute "__aiter__" (not async iterable)
-main:21: error: "asyncify[int]" has no attribute "__iter__"; maybe "__aiter__"? (not iterable)
+main:17: error: "Iterable[int]" has no attribute "__aiter__" (not async iterable)
+main:18: error: "asyncify[int]" has no attribute "__iter__"; maybe "__aiter__"? (not iterable)
+main:19: error: "Iterable[int]" has no attribute "__aiter__" (not async iterable)
+main:20: error: "asyncify[int]" has no attribute "__iter__"; maybe "__aiter__"? (not iterable)
 [builtins fixtures/async_await.pyi]
 [typing fixtures/typing-async.pyi]
 
@@ -340,12 +340,12 @@ async def f() -> None:
 
 [case testNoYieldInAsyncDef]
 
-async def f():
-    yield None  # E: "yield" in async function
-async def g():
-    yield  # E: "yield" in async function
-async def h():
-    x = yield  # E: "yield" in async function
+async def f():  # E: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes
+    yield None
+async def g():  # E: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes
+    yield
+async def h():  # E: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes
+    x = yield
 [builtins fixtures/async_await.pyi]
 
 [case testNoYieldFromInAsyncDef]
@@ -530,7 +530,7 @@ def h() -> None:
 [typing fixtures/typing-async.pyi]
 
 [out]
-main:9: error: "AsyncGenerator[int, None]" has no attribute "__iter__"; maybe "__aiter__"? (not iterable)
+main:8: error: "AsyncGenerator[int, None]" has no attribute "__iter__"; maybe "__aiter__"? (not iterable)
 
 [case testAsyncGeneratorNoYieldFrom]
 from typing import AsyncGenerator

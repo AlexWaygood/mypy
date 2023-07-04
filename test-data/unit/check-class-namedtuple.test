@@ -1,7 +1,7 @@
 [case testNewNamedTupleOldPythonVersion]
 from typing import NamedTuple
 
-class E(NamedTuple):  # E: NamedTuple class syntax is only supported in Python 3.6
+class E(NamedTuple):
     pass
 [builtins fixtures/tuple.pyi]
 
@@ -367,9 +367,9 @@ class X(typing.NamedTuple):
     aa: int
 
 [out]
+main:5: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"
 main:6: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"
-main:7: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"
-main:9: error: Non-default NamedTuple fields cannot follow default fields
+main:8: error: Non-default NamedTuple fields cannot follow default fields
 
 [builtins fixtures/list.pyi]
 
@@ -392,7 +392,7 @@ def f(a: Type[N]):
     a()
 [builtins fixtures/list.pyi]
 [out]
-main:9: error: Missing positional arguments "x", "y" in call to "N"
+main:8: error: Missing positional arguments "x", "y" in call to "N"
 
 [case testNewNamedTupleWithDefaults]
 from typing import List, NamedTuple, Optional

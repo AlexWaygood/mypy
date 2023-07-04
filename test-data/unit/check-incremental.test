@@ -4004,7 +4004,7 @@ class B(A):
 [builtins fixtures/dataclasses.pyi]
 [out1]
 [out2]
-main:3: error: Argument 2 to "B" has incompatible type "str"; expected "int"
+main:2: error: Argument 2 to "B" has incompatible type "str"; expected "int"
 [rechecked b]
 
 [case testIncrementalDataclassesSubclassModifiedErrorFirst]
@@ -4080,7 +4080,7 @@ class C(A, B):
 [out1]
 [out2]
 tmp/c.py:7: error: Incompatible types in assignment (expression has type "bool", base class "B" defined the type as "str")
-main:3: error: Argument 2 to "C" has incompatible type "int"; expected "bool"
+main:2: error: Argument 2 to "C" has incompatible type "int"; expected "bool"
 
 [case testIncrementalDataclassesThreeRuns]
 from a import A
@@ -4110,7 +4110,7 @@ class A:
 [builtins fixtures/dataclasses.pyi]
 [out1]
 [out2]
-main:3: error: Argument 1 to "A" has incompatible type "int"; expected "str"
+main:2: error: Argument 1 to "A" has incompatible type "int"; expected "str"
 [out3]
 
 [case testParentPatchingMess]

@@ -45,7 +45,7 @@ class A(NamedTuple):
     x = 3  # type: int
 [builtins fixtures/tuple.pyi]
 [out]
-main:4: error: NamedTuple class syntax is only supported in Python 3.6
+main:4: error: Invalid statement in NamedTuple definition; expected "field_name: field_type [= default]"
 
 [case testNamedTupleClassInStubPython35]
 import foo

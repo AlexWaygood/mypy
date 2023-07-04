@@ -18,6 +18,9 @@ b: str = 5  # E: Incompatible types in assignment (expression has type "int", va
 zzz: int
 zzz: str  # E: Name "zzz" already defined on line 10
 [out]
+main:6: error: Incompatible types in assignment (expression has type "int", variable has type "str")
+main:7: error: Incompatible types in assignment (expression has type "int", variable has type "str")
+main:10: error: Name "zzz" already defined on line 9
 
 [case testNewSyntaxWithDict]
 from typing import Dict, Any
@@ -88,14 +91,14 @@ class X:
     x.x: int
 
 [out]
-main:4: error: Unexpected type declaration
-main:4: error: Unsupported target for indexed assignment ("str")
-main:5: error: Type cannot be declared in assignment to non-self attribute
-main:5: error: "str" has no attribute "x"
+main:3: error: Unexpected type declaration
+main:3: error: Unsupported target for indexed assignment ("str")
+main:4: error: Type cannot be declared in assignment to non-self attribute
+main:4: error: "str" has no attribute "x"
 
 [case testNewSyntaxAsyncComprehensionError]
 async def f():
-    results = [i async for i in aiter() if i % 2]  # E: Async comprehensions are only supported in Python 3.6 and greater
+    results = [i async for i in aiter() if i % 2]
 
 [case testNewSyntaxFStringBasics]
 f'foobar'
@@ -118,8 +121,8 @@ f'{1 + ""}'
 f'.{1 + ""}'
 [builtins fixtures/f_string.pyi]
 [out]
+main:1: error: Unsupported operand types for + ("int" and "str")
 main:2: error: Unsupported operand types for + ("int" and "str")
-main:3: error: Unsupported operand types for + ("int" and "str")
 
 [case testNewSyntaxFStringParseFormatOptions]
 value = 10.5142

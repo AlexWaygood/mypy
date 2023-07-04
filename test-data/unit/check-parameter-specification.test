@@ -655,7 +655,7 @@ reveal_type(abc)
 bar(abc)
 [builtins fixtures/paramspec.pyi]
 [out]
-main:16: note: Revealed type is "__main__.Foo[[builtins.int, b: builtins.str]]"
+main:15: note: Revealed type is "__main__.Foo[[builtins.int, b: builtins.str]]"
 
 [case testSolveParamSpecWithSelfType]
 from typing_extensions import ParamSpec, Concatenate
