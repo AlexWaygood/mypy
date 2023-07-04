@@ -867,7 +867,6 @@ _program.py:20: error: Argument 1 to "tst" has incompatible type "defaultdict[st
 _program.py:24: error: Invalid index type "str" for "MyDDict[Dict[<nothing>, <nothing>]]"; expected type "int"
 
 [case testNoSubcriptionOfStdlibCollections]
-# flags: --python-version 3.6
 import collections
 from collections import Counter
 from typing import TypeVar
@@ -1592,7 +1591,6 @@ _testNoPython3StubAvailable.py:3: note: (or run "mypy --install-types" to instal
 
 
 [case testTypingOrderedDictAlias]
-# flags: --python-version 3.7
 from typing import OrderedDict
 x: OrderedDict[str, int] = OrderedDict({})
 reveal_type(x)
@@ -1714,7 +1712,6 @@ _testTypeAliasWithNewStyleUnion.py:25: note: Revealed type is "Union[Type[builti
 _testTypeAliasWithNewStyleUnion.py:28: note: Revealed type is "Union[Type[builtins.int], builtins.str]"
 
 [case testTypeAliasWithNewStyleUnionInStub]
-# flags: --python-version 3.7
 import m
 a: m.A
 reveal_type(a)

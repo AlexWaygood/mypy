@@ -596,7 +596,6 @@ main:17: error: Incompatible return value type (got "Callable[[Arg(int, 'x'), **
 main:17: note: This is likely because "result" has named arguments: "x". Consider marking them positional-only
 
 [case testNonStrictParamSpecConcatenateNamedArgs]
-# flags: --python-version 3.8
 
 # this is one noticeable deviation from PEP but I believe it is for the better
 from typing_extensions import ParamSpec, Concatenate
@@ -638,7 +637,6 @@ reveal_type(n(42))  # N: Revealed type is "None"
 [builtins fixtures/paramspec.pyi]
 
 [case testCallablesAsParameters]
-# flags: --python-version 3.8
 
 # credits to https://github.com/microsoft/pyright/issues/2705
 from typing_extensions import ParamSpec, Concatenate

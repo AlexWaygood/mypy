@@ -652,7 +652,6 @@ class M(type):
 a.py:4: error: Incompatible types in assignment (expression has type "str", variable has type "int")
 
 [case testDataclassUpdate1]
-# flags: --python-version 3.7
 [file a.py]
 from dataclasses import dataclass
 
@@ -691,7 +690,6 @@ b.py:8: error: Argument 1 to "B" has incompatible type "int"; expected "str"
 [builtins fixtures/dataclasses.pyi]
 
 [case testDataclassUpdate2]
-# flags: --python-version 3.7
 [file c.py]
 Foo = int
 
@@ -722,7 +720,6 @@ b.py:8: error: Argument 1 to "B" has incompatible type "int"; expected "str"
 [builtins fixtures/dataclasses.pyi]
 
 [case testDataclassUpdate3]
-# flags: --python-version 3.7
 from b import B
 B(1, 2)
 [file b.py]
@@ -749,7 +746,6 @@ class A:
 main:3: error: Missing positional argument "b" in call to "B"
 
 [case testDataclassUpdate4]
-# flags: --python-version 3.7
 from b import B
 B(1, 2)
 [file b.py]
@@ -776,7 +772,6 @@ class A:
 main:3: error: Missing positional argument "b" in call to "B"
 
 [case testDataclassUpdate5]
-# flags: --python-version 3.7
 from b import B
 B(1, 2)
 [file b.py]
@@ -811,7 +806,6 @@ main:3: error: Missing positional argument "b" in call to "B"
 ==
 
 [case testDataclassUpdate6]
-# flags: --python-version 3.7
 from b import B
 B(1, 2) < B(1, 2)
 [file b.py]
@@ -837,7 +831,6 @@ class A:
 main:3: error: Unsupported left operand type for < ("B")
 
 [case testDataclassUpdate8]
-# flags: --python-version 3.7
 from c import C
 C(1, 2, 3)
 [file c.py]
@@ -870,7 +863,6 @@ class A:
 main:3: error: Missing positional argument "c" in call to "C"
 
 [case testDataclassUpdate9]
-# flags: --python-version 3.7
 from c import C
 C(1, 2, 3)
 [file c.py]
@@ -9799,7 +9791,6 @@ class ExampleClass(Generic[T]):
 ==
 
 [case testDataclassCheckTypeVarBoundsInReprocess]
-# flags: --python-version 3.7
 from dataclasses import dataclass
 from typing import ClassVar, Protocol, Dict, TypeVar, Generic
 from m import x

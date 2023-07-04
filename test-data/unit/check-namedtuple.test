@@ -39,7 +39,6 @@ x.z # E: "X" has no attribute "z"
 [builtins fixtures/tuple.pyi]
 
 [case testNamedTupleClassPython35]
-# flags: --python-version 3.5
 from typing import NamedTuple
 
 class A(NamedTuple):
@@ -49,7 +48,6 @@ class A(NamedTuple):
 main:4: error: NamedTuple class syntax is only supported in Python 3.6
 
 [case testNamedTupleClassInStubPython35]
-# flags: --python-version 3.5
 import foo
 
 [file foo.pyi]
@@ -142,7 +140,6 @@ main:6: error: Unexpected keyword argument "unrecognized_arg" for "namedtuple"
 main:7: error: Too many positional arguments for "namedtuple"
 
 [case testNamedTupleDefaults]
-# flags: --python-version 3.7
 from collections import namedtuple
 
 X = namedtuple('X', ['x', 'y'], defaults=(1,))

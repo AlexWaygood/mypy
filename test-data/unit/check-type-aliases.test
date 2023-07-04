@@ -998,7 +998,6 @@ y: B[int]
 y_bad: B[str]  # E: Type argument "str" of "B" must be a subtype of "int"
 
 [case testTupleWithDifferentArgsPy38]
-# flags: --python-version 3.8
 NotYet1 = tuple[float]  # E: "tuple" is not subscriptable
 NotYet2 = tuple[float, float]  # E: "tuple" is not subscriptable
 NotYet3 = tuple[float, ...]  # E: Unexpected "..." \

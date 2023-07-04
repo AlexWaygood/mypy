@@ -1438,7 +1438,6 @@ x9, y9, x10, y10, z5 = *points2, 1, *points2 # E: Contiguous iterable with same 
 [builtins fixtures/tuple.pyi]
 
 [case testAssignEmptyPy36]
-# flags: --python-version 3.6
 () = []
 
 [case testAssignEmptyBogus]

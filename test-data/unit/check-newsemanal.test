@@ -2571,7 +2571,6 @@ import n
 class C: pass
 
 [case testNewAnalyzerModuleGetAttrInPython36]
-# flags: --python-version 3.6
 import m
 import n
 
@@ -2583,7 +2582,6 @@ import n
 def __getattr__(x): pass
 
 [case testNewAnalyzerModuleGetAttrInPython37]
-# flags: --python-version 3.7
 import m
 import n
 
