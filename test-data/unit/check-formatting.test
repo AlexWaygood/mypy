@@ -226,7 +226,8 @@ t5: Iterable[str] = ('A', 'B')
 
 
 [case testBytesInterpolationBefore35]
-b'%b' % 1  # E: Incompatible types in string interpolation (expression has type "int", placeholder has type "bytes")
+# flags: --python-version 3.4
+b'%b' % 1  # E: Unsupported left operand type for % ("bytes")
 
 [case testBytesInterpolation]
 b'%b' % 1  # E: Incompatible types in string interpolation (expression has type "int", placeholder has type "bytes")

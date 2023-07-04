@@ -339,13 +339,14 @@ async def f() -> None:
 [typing fixtures/typing-async.pyi]
 
 [case testNoYieldInAsyncDef]
+# flags: --python-version 3.5
 
-async def f():  # E: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes
-    yield None
-async def g():  # E: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes
-    yield
-async def h():  # E: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes
-    x = yield
+async def f():
+    yield None  # E: "yield" in async function
+async def g():
+    yield  # E: "yield" in async function
+async def h():
+    x = yield  # E: "yield" in async function
 [builtins fixtures/async_await.pyi]
 
 [case testNoYieldFromInAsyncDef]

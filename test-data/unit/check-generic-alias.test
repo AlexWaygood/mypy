@@ -1,6 +1,7 @@
 -- Test cases for generic aliases
 
 [case testGenericBuiltinWarning]
+# flags: --python-version 3.7
 t1: list
 t2: list[int]  # E: "list" is not subscriptable, use "typing.List" instead
 t3: list[str]  # E: "list" is not subscriptable, use "typing.List" instead
@@ -20,12 +21,14 @@ t11: type[int]  # E: "type" expects no type arguments, but 1 given
 
 
 [case testGenericBuiltinSetWarning]
+# flags: --python-version 3.7
 t1: set
 t2: set[int]  # E: "set" is not subscriptable, use "typing.Set" instead
 [builtins fixtures/set.pyi]
 
 
 [case testGenericCollectionsWarning]
+# flags: --python-version 3.7
 import collections
 
 t01: collections.deque
@@ -195,6 +198,7 @@ t23: collections.abc.ValuesView[str]
 
 
 [case testGenericBuiltinTupleTyping]
+# flags: --python-version 3.6
 from typing import Tuple
 
 t01: Tuple = ()
@@ -242,6 +246,7 @@ reveal_type(tuple[int, ...]())  # N: Revealed type is "builtins.tuple[builtins.i
 [builtins fixtures/tuple.pyi]
 
 [case testTypeAliasWithBuiltinTupleInStub]
+# flags: --python-version 3.6
 import m
 reveal_type(m.a)  # N: Revealed type is "builtins.tuple[builtins.int, ...]"
 reveal_type(m.b)  # N: Revealed type is "Tuple[builtins.int, builtins.str]"
@@ -254,6 +259,7 @@ b: B
 [builtins fixtures/tuple.pyi]
 
 [case testTypeAliasWithBuiltinListInStub]
+# flags: --python-version 3.6
 import m
 reveal_type(m.a)  # N: Revealed type is "builtins.list[builtins.int]"
 reveal_type(m.b)  # N: Revealed type is "builtins.list[builtins.list[builtins.int]]"
@@ -272,6 +278,7 @@ d: type[str]
 
 
 [case testTypeAliasWithBuiltinListAliasInStub]
+# flags: --python-version 3.6
 import m
 reveal_type(m.a()[0])  # N: Revealed type is "builtins.int"
 

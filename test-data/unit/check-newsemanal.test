@@ -2571,11 +2571,12 @@ import n
 class C: pass
 
 [case testNewAnalyzerModuleGetAttrInPython36]
+# flags: --python-version 3.6
 import m
 import n
 
-x: m.n.C
-y: n.D
+x: m.n.C # E: Name "m.n.C" is not defined
+y: n.D # E: Name "n.D" is not defined
 [file m.py]
 import n
 [file n.py]

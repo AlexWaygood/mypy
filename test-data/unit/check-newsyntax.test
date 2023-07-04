@@ -95,8 +95,9 @@ main:4: error: Type cannot be declared in assignment to non-self attribute
 main:4: error: "str" has no attribute "x"
 
 [case testNewSyntaxAsyncComprehensionError]
+# flags: --python-version 3.5
 async def f():
-    results = [i async for i in aiter() if i % 2]
+    results = [i async for i in aiter() if i % 2]  # E: Async comprehensions are only supported in Python 3.6 and greater
 
 [case testNewSyntaxFStringBasics]
 f'foobar'

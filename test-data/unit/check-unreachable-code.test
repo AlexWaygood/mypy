@@ -433,6 +433,7 @@ reveal_type(x)  # N: Revealed type is "builtins.str"
 [out]
 
 [case testCustomSysVersionInfo2]
+# flags: --python-version 3.5
 import sys
 if sys.version_info == (3, 6):
     x = "foo"

@@ -1,7 +1,8 @@
 [case testNewNamedTupleOldPythonVersion]
+# flags: --python-version 3.5
 from typing import NamedTuple
 
-class E(NamedTuple):
+class E(NamedTuple):  # E: NamedTuple class syntax is only supported in Python 3.6
     pass
 [builtins fixtures/tuple.pyi]
 
