@@ -512,6 +512,8 @@ def verify_typeinfo(
     if is_runtime_typeddict:
         to_check.discard("__new__")
 
+    errored_entries: set[str] = set()
+
     for entry in sorted(to_check):
         mangled_entry = entry
         if entry.startswith("__") and not entry.endswith("__"):
@@ -536,7 +538,43 @@ def verify_typeinfo(
             and isinstance(runtime_attr, types.WrapperDescriptorType)
             and is_dunder(mangled_entry, exclude_special=True)
         ):
-            yield from verify(stub_to_verify, runtime_attr, object_path + [entry])
+            for error in verify(stub_to_verify, runtime_attr, object_path + [entry]):
+                errored_entries.add(entry)
+                yield error
+
+    if "__hash__" not in errored_entries:
+        if (
+            runtime.__dict__.get("__hash__") is not None
+            and "__hash__" not in stub.names
+        ):
+            yield Error(
+                object_path + ["__hash__"],
+                "overrides __hash__ at runtime but not in the stub",
+                stub_object=MISSING,
+                runtime_object=runtime.__hash__
+            )
+        if "__hash__" not in runtime.__dict__ and "__hash__" in stub.names:
+            yield Error(
+                object_path + ["__hash__"],
+                "overrides __hash__ in the stub but not at runtime",
+                stub_object=stub.names["__hash__"].node,
+                runtime_object=MISSING
+            )
+    if "__eq__" not in errored_entries:
+        if "__eq__" in runtime.__dict__ and "__eq__" not in stub.names:
+            yield Error(
+                object_path + ["__eq__"],
+                "overrides __eq__ at runtime but not in the stub",
+                stub_object=MISSING,
+                runtime_object=runtime.__eq__
+            )
+        if "__eq__" not in runtime.__dict__ and "__eq__" in stub.names:
+            yield Error(
+                object_path + ["__eq__"],
+                "overrides __eq__ in the stub but not at runtime",
+                stub_object=stub.names["__eq__"].node,
+                runtime_object=MISSING
+            )
 
 
 def _static_lookup_runtime(object_path: list[str]) -> MaybeMissing[Any]:
