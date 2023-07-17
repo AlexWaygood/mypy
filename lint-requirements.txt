@@ -1,0 +1,4 @@
+black==23.3.0  # must match version in .pre-commit-config.yaml
+pre-commit
+pre-commit-hooks==4.4.0
+ruff==0.0.272  # must match version in .pre-commit-config.yaml
