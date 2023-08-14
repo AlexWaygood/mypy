@@ -81,7 +81,7 @@ class _EnumDict(dict[str, Any]):
 # such as str as mixins, which due to the handling of ABCs of builtin types, cause
 # spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
-class EnumMeta(ABCMeta):
+class EnumMeta(type):
     if sys.version_info >= (3, 11):
         def __new__(
             metacls: type[_typeshed.Self],
