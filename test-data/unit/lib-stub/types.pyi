@@ -10,8 +10,8 @@ class ModuleType:
     def __getattr__(self, name: str) -> Any: pass
 
 if sys.version_info >= (3, 10):
-    class Union:
-        def __or__(self, x) -> Union: ...
+    class UnionType:
+        def __or__(self, x) -> UnionType: ...
 
     class NoneType:
         ...

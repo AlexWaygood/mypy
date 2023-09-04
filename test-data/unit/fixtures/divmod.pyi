@@ -1,6 +1,6 @@
 from typing import TypeVar, Tuple, SupportsInt
 class object:
-    def __init__(self): pass
+    def __init__(self) -> None: pass
 
 class int(SupportsInt):
     def __divmod__(self, other: int) -> Tuple[int, int]: pass

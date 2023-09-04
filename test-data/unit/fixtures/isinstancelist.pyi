@@ -7,7 +7,7 @@ class object:
     def __eq__(self, other: object) -> bool: pass
 
 class type:
-    def __init__(self, x) -> None: pass
+    def __init__(self, x: object) -> None: pass
 
 class function: pass
 class classmethod: pass

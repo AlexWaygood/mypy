@@ -8,14 +8,14 @@ class object:
     def __init__(self) -> None: pass
 
 class type(Generic[T]):
-    def __init__(self, x) -> None: pass
-    def __or__(self, x) -> types.Union: pass
+    def __init__(self, x: object) -> None: pass
+    def __or__(self, x: Any) -> types.UnionType: pass
 
 class tuple(Generic[T]): pass
 
 class function: pass
 
-def isinstance(x: object, t: Union[Type[object], Tuple[Type[object], ...], types.Union]) -> bool: pass
+def isinstance(x: object, t: Union[Type[object], Tuple[Type[object], ...], types.UnionType]) -> bool: pass
 def issubclass(x: object, t: Union[Type[object], Tuple[Type[object], ...]]) -> bool: pass
 
 class int:

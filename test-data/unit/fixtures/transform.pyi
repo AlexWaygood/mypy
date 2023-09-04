@@ -24,7 +24,7 @@ class float: pass
 # The transformation implementation has special case handling for these
 # functions; it's a bit ugly but it works for now.
 
-def __print(a1=None, a2=None, a3=None, a4=None):
+def __print(a1=None, a2=None, a3=None, a4=None) -> None:
     # Do not use *args since this would require list and break many test
     # cases.
     pass

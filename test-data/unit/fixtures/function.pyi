@@ -1,5 +1,5 @@
 class object:
-    def __init__(self): pass
+    def __init__(self) -> None: pass
 
 class type: pass
 class function: pass

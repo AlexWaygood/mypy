@@ -10,7 +10,7 @@ class object:
     def __new__(cls) -> Any: pass
 
 class type:
-    def __init__(self, x) -> None: pass
+    def __init__(self, x: object) -> None: pass
 
 class int: pass
 class bool: pass

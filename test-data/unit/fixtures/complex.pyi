@@ -2,7 +2,7 @@
 # Please don't add tuple to this file, it is used to test incomplete fixtures.
 
 class object:
-    def __init__(self): pass
+    def __init__(self) -> None: pass
 
 class type: pass
 class function: pass

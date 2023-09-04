@@ -2,7 +2,7 @@ from typing import Generic, TypeVar
 _T = TypeVar('_T')
 
 class object:
-    def __init__(self): pass
+    def __init__(self) -> None: pass
 
 class tuple(Generic[_T]): pass
 

@@ -5,7 +5,7 @@ from typing import Iterable, TypeVar, Generic
 T = TypeVar('T')
 
 class object:
-    def __init__(self): pass
+    def __init__(self) -> None: pass
 
 class type: pass
 class function: pass

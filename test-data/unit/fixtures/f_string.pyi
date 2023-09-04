@@ -6,10 +6,10 @@ from typing import TypeVar, Generic, Iterable, Iterator, List, overload
 T = TypeVar('T')
 
 class object:
-    def __init__(self): pass
+    def __init__(self) -> None: pass
 
 class type:
-    def __init__(self, x) -> None: pass
+    def __init__(self, x: object) -> None: pass
 
 class ellipsis: pass
 
