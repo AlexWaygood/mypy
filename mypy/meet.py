@@ -462,7 +462,6 @@ def is_overlapping_types(
             left,
             right,
             is_compat=_is_overlapping_types,
-            is_proper_subtype=False,
             ignore_pos_arg_names=True,
             allow_partial_overlap=True,
         )
