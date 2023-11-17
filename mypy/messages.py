@@ -96,18 +96,18 @@ from mypy.typetraverser import TypeTraverserVisitor
 from mypy.util import plural_s, unmangle
 
 TYPES_FOR_UNIMPORTED_HINTS: Final = {
-    "typing.Any",
-    "typing.Callable",
-    "typing.Dict",
-    "typing.Iterable",
-    "typing.Iterator",
-    "typing.List",
-    "typing.Optional",
-    "typing.Set",
-    "typing.Tuple",
-    "typing.TypeVar",
-    "typing.Union",
-    "typing.cast",
+    "Any": "typing",
+    "Dict": "typing",
+    "List": "typing",
+    "Optional": "typing",
+    "Set": "typing",
+    "Tuple": "typing",
+    "TypeVar": "typing",
+    "Union": "typing",
+    "cast": "typing",
+    "Callable": "collections.abc",
+    "Iterator": "collections.abc",
+    "Iterable": "collections.abc",
 }
 
 
@@ -2688,7 +2688,7 @@ def find_type_overlaps(*types: Type) -> set[str]:
         for inst in collect_all_instances(type):
             d.setdefault(inst.type.name, set()).add(inst.type.fullname)
     for shortname in d.keys():
-        if f"typing.{shortname}" in TYPES_FOR_UNIMPORTED_HINTS:
+        if shortname in TYPES_FOR_UNIMPORTED_HINTS:
             d[shortname].add(f"typing.{shortname}")
 
     overlaps: set[str] = set()

@@ -6423,19 +6423,15 @@ class SemanticAnalyzer(
                 # Yes. Generate a helpful note.
                 self.msg.add_fixture_note(fullname, ctx)
 
-        modules_with_unimported_hints = {
-            name.split(".", 1)[0] for name in TYPES_FOR_UNIMPORTED_HINTS
-        }
-        lowercased = {name.lower(): name for name in TYPES_FOR_UNIMPORTED_HINTS}
-        for module in modules_with_unimported_hints:
-            fullname = f"{module}.{name}".lower()
-            if fullname not in lowercased:
-                continue
+        if name in TYPES_FOR_UNIMPORTED_HINTS:
+            module = TYPES_FOR_UNIMPORTED_HINTS[name]
+            if module == "collections.abc" and not self.options.use_lowercase_names():
+                module = "typing"
             # User probably forgot to import these types.
             hint = (
                 'Did you forget to import it from "{module}"?'
                 ' (Suggestion: "from {module} import {name}")'
-            ).format(module=module, name=lowercased[fullname].rsplit(".", 1)[-1])
+            ).format(module=module, name=name)
             self.note(hint, ctx, code=codes.NAME_DEFINED)
 
     def already_defined(

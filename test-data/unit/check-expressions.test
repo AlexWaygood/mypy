@@ -2417,10 +2417,10 @@ def f(x: Any) -> None:  # E: Name "Any" is not defined \
 
 
 [case testUnimportedHintAnyLower]
-def f(x: any) -> None:  # E: Name "any" is not defined \
-                        # N: Did you forget to import it from "typing"? (Suggestion: "from typing import Any")
+def f(x: any) -> None:  # E: Function "builtins.any" is not valid as a type \
+                        # N: Perhaps you meant "typing.Any" instead of "any"?
     pass
-
+[builtins fixtures/any.pyi]
 
 [case testUnimportedHintOptional]
 def f(x: Optional[str]) -> None:  # E: Name "Optional" is not defined \
