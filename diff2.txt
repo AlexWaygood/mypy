@@ -1,0 +1,66 @@
+Checking out and syncing mypy master...
+Running stubtest using mypy master...
+Checking out and syncing the PR...
+Running stubtest using the PR...
+Getting the diff...
+Cleaning up...
+diff --git "a/C:\\Users\\alexw\\AppData\\Local\\Temp\\tmpi8ry3_p7\\old.txt" "b/C:\\Users\\alexw\\AppData\\Local\\Temp\\tmpi8ry3_p7\\new.txt"
+index d10666ae6..ff519c406 100644
+--- "a/C:\\Users\\alexw\\AppData\\Local\\Temp\\tmpi8ry3_p7\\old.txt"
++++ "b/C:\\Users\\alexw\\AppData\\Local\\Temp\\tmpi8ry3_p7\\new.txt"
+@@ -4,6 +4,12 @@ def (self: argparse.ArgumentParser, prog: Union[builtins.str, None] =, usage: Un
+ Runtime: at line 1694 in file C:\Users\alexw\AppData\Local\Programs\Python\Python310\lib\argparse.py
+ def (self, prog=None, usage=None, description=None, epilog=None, parents=[], formatter_class=<class 'argparse.HelpFormatter'>, prefix_chars='-', fromfile_prefix_chars=None, argument_default=None, conflict_handler='error', add_help=True, allow_abbrev=True, exit_on_error=True)
+ 
++error: lib2to3.pygram.python_grammar_no_print_and_exec_statement is not present in stub
++Stub: in file ..\typeshed\stdlib\lib2to3\pygram.pyi
++MISSING
++Runtime:
++<lib2to3.pgen2.grammar.Grammar object at 0x000001279D810FA0>
++
+ error: locale.__all__ names exported from the stub do not correspond to the names exported at runtime. This is probably due to things being missing from the stub, or if present, an inaccurate `__all__` in the stub
+ Stub: in file ..\typeshed\stdlib\locale.pyi
+ Names exported in the stub but not at runtime: ['LC_MESSAGES']
+@@ -21,13 +27,39 @@ error: urllib.parse.urlencode is inconsistent, runtime argument "encoding" has a
+ Stub: at line 159 in file ..\typeshed\stdlib\urllib\parse.pyi
+ def [_Q <: Union[builtins.str, typing.Iterable[builtins.int]], AnyStr in (builtins.str, builtins.bytes)] (query: Union[typing.Mapping[Any, Any], typing.Mapping[Any, typing.Sequence[Any]], typing.Sequence[Tuple[Any, Any]], typing.Sequence[Tuple[Any, typing.Sequence[Any]]]], doseq: builtins.bool =, safe: _Q`-1 =, encoding: builtins.str =, errors: builtins.str =, quote_via: def (AnyStr`-2, _Q`-1, builtins.str, builtins.str) -> builtins.str =) -> builtins.str
+ Runtime: at line 911 in file C:\Users\alexw\AppData\Local\Programs\Python\Python310\lib\urllib\parse.py
+-def (query, doseq=False, safe='', encoding=None, errors=None, quote_via=<function quote_plus at 0x00000218DB9284C0>)
++def (query, doseq=False, safe='', encoding=None, errors=None, quote_via=<function quote_plus at 0x000001278F6F84C0>)
+ 
+ error: urllib.parse.urlencode is inconsistent, runtime argument "errors" has a default value of type None, which is incompatible with stub argument type builtins.str
+ Stub: at line 159 in file ..\typeshed\stdlib\urllib\parse.pyi
+ def [_Q <: Union[builtins.str, typing.Iterable[builtins.int]], AnyStr in (builtins.str, builtins.bytes)] (query: Union[typing.Mapping[Any, Any], typing.Mapping[Any, typing.Sequence[Any]], typing.Sequence[Tuple[Any, Any]], typing.Sequence[Tuple[Any, typing.Sequence[Any]]]], doseq: builtins.bool =, safe: _Q`-1 =, encoding: builtins.str =, errors: builtins.str =, quote_via: def (AnyStr`-2, _Q`-1, builtins.str, builtins.str) -> builtins.str =) -> builtins.str
+ Runtime: at line 911 in file C:\Users\alexw\AppData\Local\Programs\Python\Python310\lib\urllib\parse.py
+-def (query, doseq=False, safe='', encoding=None, errors=None, quote_via=<function quote_plus at 0x00000218DB9284C0>)
++def (query, doseq=False, safe='', encoding=None, errors=None, quote_via=<function quote_plus at 0x000001278F6F84C0>)
++
++error: venv.logger is not present in stub
++Stub: in file ..\typeshed\stdlib\venv\__init__.pyi
++MISSING
++Runtime:
++<Logger venv (WARNING)>
+ 
++note: unused allowlist entry asyncore\.E[A-Z]+
++note: unused allowlist entry asyncore.errorcode
++note: unused allowlist entry email._header_value_parser.hexdigits
++note: unused allowlist entry logging.handlers.ST_[A-Z]+
++note: unused allowlist entry xml.dom.expatbuilder.EMPTY_NAMESPACE
++note: unused allowlist entry xml.dom.expatbuilder.EMPTY_PREFIX
++note: unused allowlist entry xml.dom.expatbuilder.XMLNS_NAMESPACE
++note: unused allowlist entry xml.dom.minidom.EMPTY_NAMESPACE
++note: unused allowlist entry xml.dom.minidom.EMPTY_PREFIX
++note: unused allowlist entry xml.dom.minidom.XMLNS_NAMESPACE
++note: unused allowlist entry distutils.command.bdist_rpm.DEBUG
++note: unused allowlist entry distutils.command.build_ext.USER_BASE
++note: unused allowlist entry distutils.command.build_scripts.ST_MODE
++note: unused allowlist entry distutils.command.install_scripts.ST_MODE
++note: unused allowlist entry distutils.dist.DEBUG
++note: unused allowlist entry distutils.spawn.DEBUG
++note: unused allowlist entry distutils.core.DEBUG
+ note: unused allowlist entry asynchat.__warningregistry__
+-Found 6 errors (checked 482 modules)
++note: unused allowlist entry distutils.archive_util.getgrnam
++note: unused allowlist entry distutils.archive_util.getpwnam
++note: unused allowlist entry xmlrpc.server.fcntl
++Found 28 errors (checked 482 modules)

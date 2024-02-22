@@ -1,0 +1,33 @@
+error: argparse.ArgumentParser.__init__ is inconsistent, runtime argument "formatter_class" has a default value of type builtins.type, which is incompatible with stub argument type argparse._FormatterClass
+Stub: at line 132 in file stdlib\argparse.pyi
+def (self: argparse.ArgumentParser, prog: Union[builtins.str, None] =, usage: Union[builtins.str, None] =, description: Union[builtins.str, None] =, epilog: Union[builtins.str, None] =, parents: typing.Sequence[argparse.ArgumentParser] =, formatter_class: argparse._FormatterClass =, prefix_chars: builtins.str =, fromfile_prefix_chars: Union[builtins.str, None] =, argument_default: Any =, conflict_handler: builtins.str =, add_help: builtins.bool =, allow_abbrev: builtins.bool =, exit_on_error: builtins.bool =)
+Runtime: at line 1694 in file C:\Users\alexw\AppData\Local\Programs\Python\Python310\lib\argparse.py
+def (self, prog=None, usage=None, description=None, epilog=None, parents=[], formatter_class=<class 'argparse.HelpFormatter'>, prefix_chars='-', fromfile_prefix_chars=None, argument_default=None, conflict_handler='error', add_help=True, allow_abbrev=True, exit_on_error=True)
+
+error: locale.__all__ names exported from the stub do not correspond to the names exported at runtime. This is probably due to things being missing from the stub or an inaccurate `__all__` in the stub
+Stub: in file stdlib\locale.pyi
+Names exported in the stub but not at runtime: ['LC_MESSAGES']
+Runtime:
+Names exported at runtime but not in the stub: []
+
+note: unused allowlist entry asyncore\.E[A-Z]+
+note: unused allowlist entry asyncore.errorcode
+note: unused allowlist entry email._header_value_parser.hexdigits
+note: unused allowlist entry logging.handlers.ST_[A-Z]+
+note: unused allowlist entry xml.dom.expatbuilder.EMPTY_NAMESPACE
+note: unused allowlist entry xml.dom.expatbuilder.EMPTY_PREFIX
+note: unused allowlist entry xml.dom.expatbuilder.XMLNS_NAMESPACE
+note: unused allowlist entry xml.dom.minidom.EMPTY_NAMESPACE
+note: unused allowlist entry xml.dom.minidom.EMPTY_PREFIX
+note: unused allowlist entry xml.dom.minidom.XMLNS_NAMESPACE
+note: unused allowlist entry distutils.command.bdist_rpm.DEBUG
+note: unused allowlist entry distutils.command.build_ext.USER_BASE
+note: unused allowlist entry distutils.command.build_scripts.ST_MODE
+note: unused allowlist entry distutils.command.install_scripts.ST_MODE
+note: unused allowlist entry distutils.dist.DEBUG
+note: unused allowlist entry distutils.spawn.DEBUG
+note: unused allowlist entry asynchat.__warningregistry__
+note: unused allowlist entry distutils.archive_util.getgrnam
+note: unused allowlist entry distutils.archive_util.getpwnam
+note: unused allowlist entry xmlrpc.server.fcntl
+Found 22 errors (checked 482 modules)

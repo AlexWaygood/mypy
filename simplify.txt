@@ -1,0 +1,413 @@
+.\misc\async_matrix.py:75:9: SIM105 Use 'contextlib.suppress(AttributeError)'
+.\misc\async_matrix.py:94:9: SIM105 Use 'contextlib.suppress(AttributeError)'
+.\misc\fix_annotate.py:56:9: SIM102 Use a single if-statement instead of nested if-statements
+.\misc\fix_annotate.py:217:13: SIM102 Use a single if-statement instead of nested if-statements
+.\misc\proper_plugin.py:135:9: SIM102 Use a single if-statement instead of nested if-statements
+.\misc\upload-pypi.py:45:5: SIM117 Use 'with urlopen(download_url) as src_file, open(dst / name, 'wb') as dst_file:' instead of multiple with statements
+.\mypy\applytype.py:41:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\applytype.py:109:16: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'nt'
+.\mypy\build.py:1192:5: SIM105 Use 'contextlib.suppress(FileExistsError)'
+.\mypy\build.py:1206:5: SIM105 Use 'contextlib.suppress(FileExistsError)'
+.\mypy\build.py:1340:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\build.py:1584:13: SIM105 Use 'contextlib.suppress(OSError)'
+.\mypy\build.py:1973:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\build.py:2706:13: SIM103 Return the condition parent_mod.is_partial_stub_package directly
+.\mypy\build.py:2956:17: SIM105 Use 'contextlib.suppress(os.error)'
+.\mypy\checker.py:508:21: SIM117 Use 'with self.tscope.class_scope(active_typeinfo) if active_typeinfo else nullcontext()
+    , self.scope.push_class(active_typeinfo) if active_typeinfo else nullcontext():' instead of multiple with statements.\mypy\checker.py:530:9: SIM117 Use 'with self.enter_partial_types(), self.binder.top_frame_context():' instead of multiple with statements
+.\mypy\checker.py:842:14: SIM114 Use logical or ((not self.is_generator_return_type(return_type, is_coroutine) and not self.
+    is_async_generator_return_type(return_type)) or (not isinstance(return_type, Instance))) and a single body
+.\mypy\checker.py:842:14: SIM114 Use logical or ((not self.is_generator_return_type(return_type, is_coroutine) and not self.
+    is_async_generator_return_type(return_type)) or (not isinstance(return_type, Instance))) and a single body
+.\mypy\checker.py:872:14: SIM114 Use logical or ((not self.is_generator_return_type(return_type, is_coroutine) and not self.
+    is_async_generator_return_type(return_type)) or (not isinstance(return_type, Instance))) and a single body
+.\mypy\checker.py:872:14: SIM114 Use logical or ((not self.is_generator_return_type(return_type, is_coroutine) and not self.
+    is_async_generator_return_type(return_type)) or (not isinstance(return_type, Instance))) and a single body
+.\mypy\checker.py:885:13: SIM114 Use logical or ((return_type.type.fullname in ('typing.Generator',
+    'typing.AwaitableGenerator') and len(return_type.args) >= 3) or (return_type.type.fullname == 'typing.AsyncGenerator' and len(return_type.
+    args) >= 2)) and a single body
+.\mypy\checker.py:885:13: SIM114 Use logical or ((return_type.type.fullname in ('typing.Generator',
+    'typing.AwaitableGenerator') and len(return_type.args) >= 3) or (return_type.type.fullname == 'typing.AsyncGenerator' and len(return_type.
+    args) >= 2)) and a single body
+.\mypy\checker.py:885:13: SIM114 Use logical or ((return_type.type.fullname in ('typing.Generator',
+    'typing.AwaitableGenerator') and len(return_type.args) >= 3) or (return_type.type.fullname == 'typing.AsyncGenerator' and len(return_type.
+    args) >= 2)) and a single body
+.\mypy\checker.py:885:13: SIM114 Use logical or ((return_type.type.fullname in ('typing.Generator',
+    'typing.AwaitableGenerator') and len(return_type.args) >= 3) or (return_type.type.fullname == 'typing.AsyncGenerator' and len(return_type.
+    args) >= 2)) and a single body
+.\mypy\checker.py:885:13: SIM114 Use logical or ((return_type.type.fullname in ('typing.Generator',
+    'typing.AwaitableGenerator') and len(return_type.args) >= 3) or (return_type.type.fullname == 'typing.AsyncGenerator' and len(return_type.
+    args) >= 2)) and a single body
+.\mypy\checker.py:911:14: SIM114 Use logical or ((not self.is_generator_return_type(return_type, is_coroutine)) or (not isinstance(return_type, Instance))) and a single body
+.\mypy\checker.py:911:14: SIM114 Use logical or ((not self.is_generator_return_type(return_type, is_coroutine)) or (not isinstance(return_type, Instance))) and a single body
+.\mypy\checker.py:1053:21: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:1152:21: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:1167:21: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:1305:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:1377:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:1783:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:1813:18: SIM114 Use logical or ((is_equivalent(original_type, typ)) or (original_node and not self.is_writable_attribute(original_node) and
+    is_subtype(typ, original_type))) and a single body
+.\mypy\checker.py:1813:18: SIM114 Use logical or ((is_equivalent(original_type, typ)) or (original_node and not self.is_writable_attribute(original_node) and
+    is_subtype(typ, original_type))) and a single body
+.\mypy\checker.py:1813:18: SIM114 Use logical or ((is_equivalent(original_type, typ)) or (original_node and not self.is_writable_attribute(original_node) and
+    is_subtype(typ, original_type))) and a single body
+.\mypy\checker.py:1907:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:2035:13: SIM117 Use 'with self.binder.top_frame_context(), self.scope.push_class(defn.info):' instead of multiple with statements
+.\mypy\checker.py:2446:12: SIM114 Use logical or ((isinstance(s, AssertStmt) and is_false_literal(s.expr)) or (isinstance(s, (RaiseStmt, PassStmt)))) and a single body
+.\mypy\checker.py:2545:12: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'lvalue'.\mypy\checker.py:2576:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:2687:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:2926:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:2931:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:3059:25: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:3124:12: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'rvalue'.\mypy\checker.py:3511:14: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'lvalue'.\mypy\checker.py:3652:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:3871:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:4140:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:4337:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:4374:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:4382:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:4764:12: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'typ'
+.\mypy\checker.py:5038:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:5676:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:5790:9: SIM110 Use 'return any(node in m for m in reversed(self._type_maps))'
+.\mypy\checker.py:6599:8: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 't'
+.\mypy\checker.py:6770:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:6771:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:6798:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checker.py:7166:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:439:21: SIM105 Use 'contextlib.suppress(KeyError)'
+.\mypy\checkexpr.py:596:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:778:51: SIM118 Use 'key in kwargs' instead of 'key in kwargs.keys()'
+.\mypy\checkexpr.py:948:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:1491:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:1640:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:1943:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:1965:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:2216:17: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'typ'
+.\mypy\checkexpr.py:2241:24: SIM114 Use logical or ((args_have_var_arg and typ.is_var_arg) or (args_have_kw_arg and typ.is_kw_arg)) and a single body
+.\mypy\checkexpr.py:2279:13: SIM117 Use 'with self.msg.filter_errors() as w, self.chk.local_type_map() as m:' instead of multiple with statements
+.\mypy\checkexpr.py:2976:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:2986:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:3618:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:4299:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkexpr.py:4685:13: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'typ'
+.\mypy\checkexpr.py:5146:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkmember.py:392:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkmember.py:548:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkmember.py:831:16: SIM114 Use logical or ((subtypes.is_subtype(dispatched_arg_type, erase_typevars(erase_to_bound(
+    selfarg)))) or (isinstance(selfarg, ParamSpecType))) and a single body
+.\mypy\checkmember.py:871:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkmember.py:938:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkmember.py:1172:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkpattern.py:240:16: SIM114 Use logical or ((size_diff < 0) or (size_diff > 0 and star_position is None)) and a single body
+.\mypy\checkpattern.py:600:9: SIM110 Use 'return any(is_subtype(typ, other) for other in self.self_match_types)'
+.\mypy\checkstrformat.py:360:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkstrformat.py:430:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkstrformat.py:433:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkstrformat.py:794:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkstrformat.py:945:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkstrformat.py:956:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\checkstrformat.py:1039:14: SIM114 Use logical or ((p == 'a') or (p in ['s', 'r'])) and a single body
+.\mypy\checkstrformat.py:1039:14: SIM114 Use logical or ((p == 'a') or (p in ['s', 'r'])) and a single body
+.\mypy\config_parser.py:490:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\constraints.py:385:5: SIM111 Use 'return all(any(is_same_constraint(c1, c2) for c2 in x) for c1 in y)'
+.\mypy\constraints.py:529:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\constraints.py:530:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\constraints.py:559:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\constraints.py:607:28: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'suffix'
+.\mypy\constraints.py:644:29: SIM114 Use logical or ((isinstance(template_unpack, Instance) and template_unpack.type.fullname ==
+    'builtins.tuple') or (isinstance(template_unpack, TupleType))) and a single body
+.\mypy\constraints.py:644:29: SIM114 Use logical or ((isinstance(template_unpack, Instance) and template_unpack.type.fullname ==
+    'builtins.tuple') or (isinstance(template_unpack, TupleType))) and a single body
+.\mypy\constraints.py:690:28: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'suffix'
+.\mypy\dmypy_server.py:108:43: SIM115 Use context handler for opening files
+.\mypy\dmypy_server.py:251:13: SIM105 Use 'contextlib.suppress(OSError)'
+.\mypy\dmypy_server.py:311:13: SIM117 Use 'with redirect_stderr(stderr), redirect_stdout(stdout):' instead of multiple with statements
+.\mypy\errors.py:784:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\expandtype.py:166:14: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'repl'.\mypy\expandtype.py:208:18: SIM114 Use logical or ((isinstance(repl, Instance) and repl.type.fullname == 'builtins.tuple') or (isinstance(repl, AnyType))) and a single body
+.\mypy\expandtype.py:208:18: SIM114 Use logical or ((isinstance(repl, Instance) and repl.type.fullname == 'builtins.tuple') or (isinstance(repl, AnyType))) and a single body
+.\mypy\expandtype.py:239:16: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'repl'.\mypy\exprtotype.py:176:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\fastparse.py:394:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\fastparse.py:1922:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\fixup.py:272:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\fscache.py:74:17: SIM105 Use 'contextlib.suppress(OSError)'
+.\mypy\gclogger.py:41:9: SIM904 Initialize dictionary 'result' directly
+.\mypy\inspections.py:50:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\inspections.py:67:10: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\inspections.py:67:10: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\inspections.py:67:10: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\inspections.py:69:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\inspections.py:69:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\inspections.py:69:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\inspections.py:69:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\inspections.py:144:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\join.py:332:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\join.py:332:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\join.py:332:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\join.py:334:14: SIM114 Use logical or ((isinstance(self.s, TypedDictType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\join.py:334:14: SIM114 Use logical or ((isinstance(self.s, TypedDictType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\join.py:334:14: SIM114 Use logical or ((isinstance(self.s, TypedDictType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\join.py:334:14: SIM114 Use logical or ((isinstance(self.s, TypedDictType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\join.py:336:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\join.py:336:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\join.py:336:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\join.py:336:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\join.py:336:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\join.py:510:14: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\join.py:510:14: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\join.py:510:14: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\join.py:510:14: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\join.py:514:14: SIM114 Use logical or ((isinstance(typ, TypeVarType)) or (isinstance(typ, ParamSpecType))) and a single body
+.\mypy\join.py:514:14: SIM114 Use logical or ((isinstance(typ, TypeVarType)) or (isinstance(typ, ParamSpecType))) and a single body
+.\mypy\join.py:514:14: SIM114 Use logical or ((isinstance(typ, TypeVarType)) or (isinstance(typ, ParamSpecType))) and a single body
+.\mypy\join.py:514:14: SIM114 Use logical or ((isinstance(typ, TypeVarType)) or (isinstance(typ, ParamSpecType))) and a single body
+.\mypy\join.py:514:14: SIM114 Use logical or ((isinstance(typ, TypeVarType)) or (isinstance(typ, ParamSpecType))) and a single body
+.\mypy\join.py:514:14: SIM114 Use logical or ((isinstance(typ, TypeVarType)) or (isinstance(typ, ParamSpecType))) and a single body
+.\mypy\main.py:299:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\maptype.py:30:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\meet.py:75:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\meet.py:209:10: SIM114 Use logical or ((isinstance(typ, UnionType)) or (isinstance(typ, Overloaded))) and a single body
+.\mypy\meet.py:209:10: SIM114 Use logical or ((isinstance(typ, UnionType)) or (isinstance(typ, Overloaded))) and a single body
+.\mypy\meet.py:209:10: SIM114 Use logical or ((isinstance(typ, UnionType)) or (isinstance(typ, Overloaded))) and a single body
+.\mypy\meet.py:346:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\meet.py:479:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\meet.py:679:12: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'self.s'
+.\mypy\meet.py:730:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\meet.py:730:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\meet.py:730:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\meet.py:730:14: SIM114 Use logical or ((isinstance(self.s, TypeType)) or (isinstance(self.s, TupleType))) and a single body
+.\mypy\meet.py:732:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\meet.py:732:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\meet.py:732:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\meet.py:732:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\meet.py:732:14: SIM114 Use logical or ((isinstance(self.s, TupleType)) or (isinstance(self.s, LiteralType))) and a single body
+.\mypy\meet.py:734:14: SIM114 Use logical or ((isinstance(self.s, LiteralType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\meet.py:734:14: SIM114 Use logical or ((isinstance(self.s, LiteralType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\meet.py:734:14: SIM114 Use logical or ((isinstance(self.s, LiteralType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\meet.py:734:14: SIM114 Use logical or ((isinstance(self.s, LiteralType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\meet.py:734:14: SIM114 Use logical or ((isinstance(self.s, LiteralType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\meet.py:734:14: SIM114 Use logical or ((isinstance(self.s, LiteralType)) or (isinstance(self.s, TypedDictType))) and a single body
+.\mypy\meet.py:828:12: SIM114 Use logical or ((isinstance(self.s, LiteralType) and self.s == t) or (isinstance(self.s, Instance) and is_subtype(t.fallback, self.s))) and a single body
+.\mypy\memprofile.py:58:9: SIM401 Use 'name = inferred.get(id(obj), type(obj).__name__)' instead of an if-block
+.\mypy\memprofile.py:81:5: SIM113 Use enumerate for 'i'
+.\mypy\messages.py:2055:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\messages.py:2686:13: SIM105 Use 'contextlib.suppress(KeyError)'
+.\mypy\metastore.py:156:9: SIM105 Use 'contextlib.suppress(sqlite3.OperationalError)'
+.\mypy\modulefinder.py:149:12: SIM114 Use logical or ((file.path and file.path in self.source_paths) or (file._fullname in self.source_modules)) and a single body
+.\mypy\modulefinder.py:151:14: SIM114 Use logical or ((file._fullname in self.source_modules) or (self.source_text_present)) and a single body
+.\mypy\modulefinder.py:151:14: SIM114 Use logical or ((file._fullname in self.source_modules) or (self.source_text_present)) and a single body
+.\mypy\modulefinder.py:153:9: SIM103 Return the condition self.source_text_present directly
+.\mypy\modulefinder.py:341:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\modulefinder.py:510:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\nodes.py:1772:16: SIM109 Use 'self in (ARG_POS, ARG_OPT)' instead of 'self == ARG_POS or self == ARG_OPT or star and self == ARG_STAR'
+.\mypy\nodes.py:1775:16: SIM109 Use 'self in (ARG_NAMED, ARG_NAMED_OPT)' instead of 'self == ARG_NAMED or self == ARG_NAMED_OPT or star and self == ARG_STAR2'
+.\mypy\nodes.py:1778:16: SIM109 Use 'self in (ARG_POS, ARG_NAMED)' instead of 'self == ARG_POS or self == ARG_NAMED'
+.\mypy\nodes.py:1781:16: SIM109 Use 'self in (ARG_OPT, ARG_NAMED_OPT)' instead of 'self == ARG_OPT or self == ARG_NAMED_OPT'
+.\mypy\nodes.py:1784:16: SIM109 Use 'self in (ARG_STAR, ARG_STAR2)' instead of 'self == ARG_STAR or self == ARG_STAR2'
+.\mypy\nodes.py:2939:20: SIM114 Use logical or ((isinstance(node, FuncBase)) or (isinstance(node, Decorator))) and a single body
+.\mypy\nodes.py:2975:9: SIM110 Use 'return any(cls.fullname == fullname for cls in self.mro)'
+.\mypy\nodes.py:3732:14: SIM109 Use 'kind in (ARG_NAMED, ARG_NAMED_OPT)' instead of 'kind == ARG_NAMED or kind == ARG_NAMED_OPT'
+.\mypy\reachability.py:122:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\reachability.py:127:8: SIM114 Use logical or ((isinstance(expr, NameExpr)) or (isinstance(expr, MemberExpr))) and a single body
+.\mypy\reachability.py:164:8: SIM114 Use logical or ((isinstance(pattern, AsPattern) and pattern.pattern is None) or (isinstance(pattern, OrPattern) and any(infer_pattern_value(p) ==
+    ALWAYS_TRUE for p in pattern.patterns))) and a single body
+.\mypy\reachability.py:280:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\reachability.py:299:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\reachability.py:319:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\renaming.py:404:9: SIM103 Return the condition var_blocks[name] == block directly
+.\mypy\report.py:63:9: SIM105 Use 'contextlib.suppress(KeyError)'
+.\mypy\report.py:337:18: SIM114 Use logical or ((char == '#') or (char == '\n')) and a single body
+.\mypy\report.py:337:18: SIM114 Use logical or ((char == '#') or (char == '\n')) and a single body
+.\mypy\report.py:337:18: SIM114 Use logical or ((char == '#') or (char == '\n')) and a single body
+.\mypy\scope.py:116:9: SIM117 Use 'with self.module_scope(module), self.class_scope(info) if info else nullcontext():' instead of multiple with statements
+.\mypy\scope.py:117:13: SIM117 Use 'with self.class_scope(info) if info else nullcontext(), self.function_scope(function) if function else nullcontext():' instead of multiple with statements
+.\mypy\semanal.py:504:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:791:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:1471:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:1506:17: SIM117 Use 'with self.scope.class_scope(defn.info), self.named_tuple_analyzer.save_namedtuple_body(info):' instead of multiple with statements
+.\mypy\semanal.py:1621:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:1703:12: SIM114 Use logical or ((sym is None or not isinstance(sym.node, TypeVarExpr)) or (sym.fullname and not self.tvar_scope.allow_binding(sym.fullname))) and a single body
+.\mypy\semanal.py:2097:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2269:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2308:55: SIM118 Use 'source_id in module.names' instead of 'source_id in module.names.keys()'
+.\mypy\semanal.py:2398:21: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2454:14: SIM114 Use logical or ((self.process_typevar_declaration(s)) or (self.process_paramspec_declaration(s))) and a single body
+.\mypy\semanal.py:2454:14: SIM114 Use logical or ((self.process_typevar_declaration(s)) or (self.process_paramspec_declaration(s))) and a single body
+.\mypy\semanal.py:2456:14: SIM114 Use logical or ((self.process_paramspec_declaration(s)) or (self.process_typevartuple_declaration(s))) and a single body
+.\mypy\semanal.py:2456:14: SIM114 Use logical or ((self.process_paramspec_declaration(s)) or (self.process_typevartuple_declaration(s))) and a single body
+.\mypy\semanal.py:2456:14: SIM114 Use logical or ((self.process_paramspec_declaration(s)) or (self.process_typevartuple_declaration(s))) and a single body
+.\mypy\semanal.py:2458:14: SIM114 Use logical or ((self.process_typevartuple_declaration(s)) or (self.analyze_namedtuple_assign(s))) and a single body
+.\mypy\semanal.py:2458:14: SIM114 Use logical or ((self.process_typevartuple_declaration(s)) or (self.analyze_namedtuple_assign(s))) and a single body
+.\mypy\semanal.py:2458:14: SIM114 Use logical or ((self.process_typevartuple_declaration(s)) or (self.analyze_namedtuple_assign(s))) and a single body
+.\mypy\semanal.py:2458:14: SIM114 Use logical or ((self.process_typevartuple_declaration(s)) or (self.analyze_namedtuple_assign(s))) and a single body
+.\mypy\semanal.py:2461:14: SIM114 Use logical or ((self.analyze_namedtuple_assign(s)) or (self.analyze_typeddict_assign(s))) and a single body
+.\mypy\semanal.py:2461:14: SIM114 Use logical or ((self.analyze_namedtuple_assign(s)) or (self.analyze_typeddict_assign(s))) and a single body
+.\mypy\semanal.py:2461:14: SIM114 Use logical or ((self.analyze_namedtuple_assign(s)) or (self.analyze_typeddict_assign(s))) and a single body
+.\mypy\semanal.py:2461:14: SIM114 Use logical or ((self.analyze_namedtuple_assign(s)) or (self.analyze_typeddict_assign(s))) and a single body
+.\mypy\semanal.py:2461:14: SIM114 Use logical or ((self.analyze_namedtuple_assign(s)) or (self.analyze_typeddict_assign(s))) and a single body
+.\mypy\semanal.py:2463:14: SIM114 Use logical or ((self.analyze_typeddict_assign(s)) or (self.newtype_analyzer.process_newtype_declaration(s))) and a single body
+.\mypy\semanal.py:2463:14: SIM114 Use logical or ((self.analyze_typeddict_assign(s)) or (self.newtype_analyzer.process_newtype_declaration(s))) and a single body
+.\mypy\semanal.py:2463:14: SIM114 Use logical or ((self.analyze_typeddict_assign(s)) or (self.newtype_analyzer.process_newtype_declaration(s))) and a single body
+.\mypy\semanal.py:2463:14: SIM114 Use logical or ((self.analyze_typeddict_assign(s)) or (self.newtype_analyzer.process_newtype_declaration(s))) and a single body
+.\mypy\semanal.py:2463:14: SIM114 Use logical or ((self.analyze_typeddict_assign(s)) or (self.newtype_analyzer.process_newtype_declaration(s))) and a single body
+.\mypy\semanal.py:2463:14: SIM114 Use logical or ((self.analyze_typeddict_assign(s)) or (self.newtype_analyzer.process_newtype_declaration(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2465:14: SIM114 Use logical or ((self.newtype_analyzer.process_newtype_declaration(s)) or (self.analyze_enum_assign(s))) and a single body
+.\mypy\semanal.py:2675:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2715:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2751:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2877:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:2979:20: SIM210 Use 'bool(e.name == 'True')' instead of 'True if e.name == 'True' else False'
+.\mypy\semanal.py:2992:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:3375:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:3399:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:3691:53: SIM201 Use 'call.arg_kinds[0] != ARG_POS' instead of 'not call.arg_kinds[0] == ARG_POS'
+.\mypy\semanal.py:4203:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:4266:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:4509:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:4790:21: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'first_arg'
+.\mypy\semanal.py:4836:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:4843:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal.py:4850:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_classprop.py:86:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_classprop.py:165:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_infer.py:49:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_infer.py:77:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_infer.py:117:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_main.py:371:9: SIM117 Use 'with state.wrap_context(), mypy.state.state.strict_optional_set(state.options.strict_optional):' instead of multiple with statements
+.\mypy\semanal_main.py:385:5: SIM117 Use 'with state.wrap_context(), mypy.state.state.strict_optional_set(state.options.strict_optional):' instead of multiple with statements
+.\mypy\semanal_main.py:420:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\semanal_newtype.py:86:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\solve.py:86:14: SIM114 Use logical or ((top is None) or (is_subtype(bottom, top))) and a single body
+.\mypy\solve.py:86:14: SIM114 Use logical or ((top is None) or (is_subtype(bottom, top))) and a single body
+.\mypy\solve.py:86:14: SIM114 Use logical or ((top is None) or (is_subtype(bottom, top))) and a single body
+.\mypy\stats.py:214:21: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\stats.py:337:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\stubgen.py:694:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\stubgen.py:984:16: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'lvalue'
+.\mypy\stubgen.py:1288:9: SIM110 Use 'return any(self.is_private_name(part) for part in parts)'
+.\mypy\stubtest.py:137:13: SIM105 Use 'contextlib.suppress(OSError, TypeError)'
+.\mypy\stubtest.py:141:13: SIM105 Use 'contextlib.suppress(TypeError)'
+.\mypy\stubtest.py:176:5: SIM117 Use 'with open(os.devnull, 'w') as devnull, warnings.catch_warnings(), redirect_stdout(devnull), redirect_stderr(devnull):' instead of multiple with statements
+.\mypy\stubtest.py:318:20: SIM901 Use 'obj_mod == r.__name__' instead of 'bool(obj_mod == r.__name__)'
+.\mypy\stubtest.py:585:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\stubtest.py:617:24: SIM901 Use 'arg.default != inspect.Parameter.empty' instead of 'bool(arg.default != inspect.Parameter.empty)'
+.\mypy\stubtest.py:768:17: SIM201 Use 'stub_arg.variable.name.strip('_') != "self"' instead of 'not stub_arg.variable.name.strip('_') == "self"'
+.\mypy\stubtest.py:1289:9: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'runtime'
+.\mypy\stubtest.py:1368:20: SIM114 Use logical or ((arg.kind == inspect.Parameter.POSITIONAL_ONLY) or (arg.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD)) and a single body
+.\mypy\subtypes.py:284:9: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'right'
+.\mypy\subtypes.py:505:29: SIM111 Use 'return all(is_equivalent(t1, t2) for t1, t2 in zip(unpacked_type.items, compare_to))'
+.\mypy\subtypes.py:632:12: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'self.right'
+.\mypy\subtypes.py:790:13: SIM110 Use 'return any(self._is_subtype(item, right) for item in left.items)'
+.\mypy\subtypes.py:823:25: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\subtypes.py:1016:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\subtypes.py:1578:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\subtypes.py:1714:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\subtypes.py:1718:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\suggestions.py:265:9: SIM117 Use 'with self.restore_after(mod), self.with_export_types():' instead of multiple with statements
+.\mypy\suggestions.py:523:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\suggestions.py:827:9: SIM908 Use 'reverse_builtin_aliases.get(s)' instead of 'if s in reverse_builtin_aliases: reverse_builtin_aliases[s]'
+.\mypy\tvar_scope.py:60:12: SIM114 Use logical or ((fullname in self.scope) or (self.parent and not self.parent.allow_binding(fullname))) and a single body
+.\mypy\tvar_scope.py:62:14: SIM114 Use logical or ((self.parent and not self.parent.allow_binding(fullname)) or (self.prohibited and not self.prohibited.allow_binding(fullname))) and a single body
+.\mypy\tvar_scope.py:62:14: SIM114 Use logical or ((self.parent and not self.parent.allow_binding(fullname)) or (self.prohibited and not self.prohibited.allow_binding(fullname))) and a single body
+.\mypy\typeanal.py:587:21: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'first_arg'
+.\mypy\typeanal.py:1643:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\typeanal.py:1659:14: SIM114 Use logical or ((not self.include_callables and self._seems_like_callable(t)) or (node and node.fullname in LITERAL_TYPE_NAMES)) and a single body
+.\mypy\typeanal.py:1659:14: SIM114 Use logical or ((not self.include_callables and self._seems_like_callable(t)) or (node and node.fullname in LITERAL_TYPE_NAMES)) and a single body
+.\mypy\typeops.py:350:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\typeops.py:395:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\typeops.py:399:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\typeops.py:541:12: SIM114 Use logical or ((not item.can_be_true and cbt) or (not item.can_be_false and cbf)) and a single body
+.\mypy\typeops.py:957:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\typeops.py:1010:10: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\typeops.py:1010:10: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\typeops.py:1010:10: SIM114 Use logical or ((isinstance(typ, TypedDictType)) or (isinstance(typ, FunctionLike))) and a single body
+.\mypy\typeops.py:1012:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\typeops.py:1012:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\typeops.py:1012:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\typeops.py:1012:10: SIM114 Use logical or ((isinstance(typ, FunctionLike)) or (isinstance(typ, LiteralType))) and a single body
+.\mypy\types.py:450:16: SIM201 Use 'self != other' instead of 'not self == other'
+.\mypy\types.py:1589:12: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'other'
+.\mypy\types.py:2266:13: SIM111 Use 'return all(left_item_type == right_item_type for _, left_item_type, right_item_type in self.zip(other))'
+.\mypy\types.py:2267:20: SIM201 Use 'left_item_type != right_item_type' instead of 'not left_item_type == right_item_type'
+.\mypy\types.py:3067:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\typestate.py:98:9: SIM110 Use 'return any(get_proper_type(l) == get_proper_type(left) and get_proper_type(r) ==
+    get_proper_type(right) for l, r in reversed(TypeState._assuming))'
+.\mypy\typestate.py:107:9: SIM110 Use 'return any(get_proper_type(l) == get_proper_type(left) and get_proper_type(r) ==
+    get_proper_type(right) for l, r in reversed(TypeState._assuming_proper))'
+.\mypy\util.py:369:9: SIM105 Use 'contextlib.suppress(AttributeError)'
+.\mypy\dmypy\client.py:339:5: SIM105 Use 'contextlib.suppress(BadStatus)'
+.\mypy\dmypy\client.py:618:39: SIM115 Use context handler for opening files
+.\mypy\plugins\attrs.py:132:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\plugins\attrs.py:342:5: SIM110 Use 'return any('attrs' in super_info.metadata and super_info.metadata['attrs']['frozen'] for super_info in ctx.cls.info.mro[1:-1])'
+.\mypy\plugins\enums.py:186:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\server\deps.py:495:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\server\deps.py:832:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\server\objgraph.py:46:13: SIM105 Use 'contextlib.suppress(AssertionError)'
+.\mypy\server\objgraph.py:49:24: SIM203 Use 'type(e) not in ATOMIC_TYPE_BLACKLIST' instead of 'not type(e) in ATOMIC_TYPE_BLACKLIST'
+.\mypy\server\objgraph.py:73:16: SIM203 Use 'type(e) not in TYPE_BLACKLIST' instead of 'not type(e) in TYPE_BLACKLIST'
+.\mypy\server\update.py:1041:5: SIM904 Initialize dictionary 'result' directly
+.\mypy\server\update.py:1252:25: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\test\data.py:339:9: SIM105 Use 'contextlib.suppress(OSError)'
+.\mypy\test\data.py:591:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\test\data.py:715:5: SIM111 Use 'return all(not os.path.basename(filename).startswith('mypy.ini.') for filename, contents in testcase.files)'
+.\mypy\test\helpers.py:324:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\test\testdaemon.py:72:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\test\testfinegrained.py:91:9: SIM113 Use enumerate for 'step'
+.\mypy\test\testfinegrained.py:106:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypy\test\testpep561.py:175:13: SIM115 Use context handler for opening files
+.\mypy\test\testutil.py:15:9: SIM117 Use 'with mock.patch.object(os, 'get_terminal_size', return_value=ret), mock.patch.dict(os.environ, values=mock_environ, clear=True):' instead of multiple with statements
+.\mypyc\subtype.py:31:13: SIM111 Use 'return all(any(is_subtype(left_item, right_item) for right_item in right.items) for left_item in left.items)'
+.\mypyc\subtype.py:64:14: SIM114 Use logical or ((is_short_int_rprimitive(left)) or (is_fixed_width_rtype(left))) and a single body
+.\mypyc\subtype.py:64:14: SIM114 Use logical or ((is_short_int_rprimitive(left)) or (is_fixed_width_rtype(left))) and a single body
+.\mypyc\subtype.py:64:14: SIM114 Use logical or ((is_short_int_rprimitive(left)) or (is_fixed_width_rtype(left))) and a single body
+.\mypyc\subtype.py:67:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\__main__.py:34:5: SIM105 Use 'contextlib.suppress(FileExistsError)'
+.\mypyc\analysis\attrdefined.py:210:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\analysis\attrdefined.py:217:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\analysis\ircheck.py:149:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\codegen\emitclass.py:380:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\codegen\emitfunc.py:361:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\codegen\emitfunc.py:564:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\codegen\emitwrapper.py:138:26: SIM201 Use 'fn.decl.kind != FUNC_STATICMETHOD' instead of 'not fn.decl.kind == FUNC_STATICMETHOD'
+.\mypyc\codegen\emitwrapper.py:226:26: SIM201 Use 'fn.decl.kind != FUNC_STATICMETHOD' instead of 'not fn.decl.kind == FUNC_STATICMETHOD'
+.\mypyc\ir\class_ir.py:253:13: SIM111 Use 'return all(not subc.method_decl(name) != method_decl for subc in subs)'
+.\mypyc\ir\class_ir.py:268:9: SIM110 Use 'return any(name in ir.deletable for ir in self.mro)'
+.\mypyc\ir\rtypes.py:615:10: SIM114 Use logical or ((isinstance(typ, RInstance)) or (isinstance(typ, RUnion))) and a single body
+.\mypyc\ir\rtypes.py:615:10: SIM114 Use logical or ((isinstance(typ, RInstance)) or (isinstance(typ, RUnion))) and a single body
+.\mypyc\irbuild\ast_helpers.py:114:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\builder.py:255:17: SIM105 Use 'contextlib.suppress(UnsupportedException)'
+.\mypyc\irbuild\builder.py:937:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\classdef.py:641:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\constant_fold.py:81:5: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\constant_fold.py:90:5: SIM116 Use a dictionary lookup instead of 3+ if/elif-statements: return {'-': '-value', '~': '~value', '+': 'value'}.get(op)
+.\mypyc\irbuild\expression.py:469:28: SIM101 Multiple isinstance-calls which can be merged into a single call for variable 'expr.left'
+.\mypyc\irbuild\expression.py:672:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\expression.py:716:13: SIM118 Use 'op in int_comparison_op_mapping' instead of 'op in int_comparison_op_mapping.keys()'
+.\mypyc\irbuild\expression.py:719:44: SIM118 Use 'op in int_comparison_op_mapping' instead of 'op in int_comparison_op_mapping.keys()'
+.\mypyc\irbuild\expression.py:730:13: SIM118 Use 'op in int_comparison_op_mapping' instead of 'op in int_comparison_op_mapping.keys()'
+.\mypyc\irbuild\function.py:221:23: SIM118 Use 'fitem in builder.encapsulating_funcs' instead of 'fitem in builder.encapsulating_funcs.keys()'
+.\mypyc\irbuild\ll_builder.py:1402:17: SIM210 Use 'bool(op == '==')' instead of 'True if op == '==' else False'
+.\mypyc\irbuild\ll_builder.py:1635:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\mapper.py:120:14: SIM114 Use logical or ((isinstance(typ, AnyType)) or (isinstance(typ, TypeType))) and a single body
+.\mypyc\irbuild\mapper.py:120:14: SIM114 Use logical or ((isinstance(typ, AnyType)) or (isinstance(typ, TypeType))) and a single body
+.\mypyc\irbuild\mapper.py:120:14: SIM114 Use logical or ((isinstance(typ, AnyType)) or (isinstance(typ, TypeType))) and a single body
+.\mypyc\irbuild\mapper.py:120:14: SIM114 Use logical or ((isinstance(typ, AnyType)) or (isinstance(typ, TypeType))) and a single body
+.\mypyc\irbuild\mapper.py:120:14: SIM114 Use logical or ((isinstance(typ, AnyType)) or (isinstance(typ, TypeType))) and a single body
+.\mypyc\irbuild\mapper.py:120:14: SIM114 Use logical or ((isinstance(typ, AnyType)) or (isinstance(typ, TypeType))) and a single body
+.\mypyc\irbuild\prepare.py:184:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\prepare.py:185:13: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\prepare.py:186:17: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\prepare.py:255:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\irbuild\specialize.py:405:12: SIM203 Use 'expr.arg_kinds[1] not in ARG_POS, ARG_NAMED' instead of 'not expr.arg_kinds[1] in ARG_POS, ARG_NAMED'
+.\mypyc\irbuild\specialize.py:600:20: SIM114 Use logical or ((not isinstance(item.callee, MemberExpr) or item.callee.name != 'format') or (not isinstance(item.callee.expr, StrExpr) or item.callee.expr.value != '{:{}}'
+    )) and a single body
+.\mypyc\test\test_run.py:160:9: SIM113 Use enumerate for 'step'
+.\mypyc\transform\exceptions.py:160:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\transform\exceptions.py:163:9: SIM102 Use a single if-statement instead of nested if-statements
+.\mypyc\transform\refcount.py:270:5: SIM113 Use enumerate for 'n'

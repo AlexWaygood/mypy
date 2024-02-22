@@ -1,0 +1,924 @@
+======================================================================== FAILURES =========================================================================
+_____________________________________________________________________ testForIterable _____________________________________________________________________
+[gw0] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-loops.test:278:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-loops.test, line 278)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-__9u_17u\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 16, in <module>      (diff)
+      iterate_over_any(5)
+    File "native.py", line 3, in iterate_over_any
+      for element in a:
+  TypeError: 'int' object is not iterable
+  Traceback (most recent call last):
+    File "driver.py", line 20, in <module>      (diff)
+      iterate_over_iterable(broken_generator(5))
+    File "native.py", line 7, in iterate_over_iterable
+      for element in iterable:
+    File "driver.py", line 8, in broken_generator (diff)
+      raise Exception('Exception Manually Raised')
+  Exception: Exception Manually Raised
+  Traceback (most recent call last):
+    File "driver.py", line 24, in <module>      (diff)
+      iterate_and_delete(d)
+    File "native.py", line 11, in iterate_and_delete
+      for key in d:
+  RuntimeError: dictionary changed size during iteration
+  ...
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-__9u_17u\tmp\driver.py", line 16, in <module> (diff)
+      iterate_over_any(5)
+    File "native.py", line 3, in iterate_over_any
+      for element in a:
+  TypeError: 'int' object is not iterable
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-__9u_17u\tmp\driver.py", line 20, in <module> (diff)
+      iterate_over_iterable(broken_generator(5))
+    File "native.py", line 7, in iterate_over_iterable
+      for element in iterable:
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-__9u_17u\tmp\driver.py", line 8, in broken_generator (diff)
+      raise Exception('Exception Manually Raised')
+  Exception: Exception Manually Raised
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-__9u_17u\tmp\driver.py", line 24, in <module> (diff)
+      iterate_and_delete(d)
+    File "native.py", line 11, in iterate_and_delete
+      for key in d:
+  RuntimeError: dictionary changed size during iteration
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 16, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-__9u_17u\tmp\driver....
+             ^
+______________________________________________________________________ testException ______________________________________________________________________
+[gw0] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-exceptions.test:3:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-exceptions.test, line 3)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-34ij61an\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 4, in <module>       (diff)
+      f([])
+    File "native.py", line 3, in f
+      g(x)
+    File "native.py", line 6, in g
+      x[5] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "driver.py", line 8, in <module>       (diff)
+      r1()
+    File "native.py", line 10, in r1
+      q1()
+    File "native.py", line 13, in q1
+      raise Exception("test")
+  Exception: test
+  Traceback (most recent call last):
+    File "driver.py", line 12, in <module>      (diff)
+      r2()
+    File "native.py", line 16, in r2
+      q2()
+    File "native.py", line 19, in q2
+      raise Exception
+  Exception
+  Traceback (most recent call last):
+    File "driver.py", line 16, in <module>      (diff)
+      hey()
+    File "native.py", line 26, in hey
+      A()
+    File "native.py", line 23, in __init__
+  ...
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-34ij61an\tmp\driver.py", line 4, in <module> (diff)
+      f([])
+    File "native.py", line 3, in f
+      g(x)
+    File "native.py", line 6, in g
+      x[5] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-34ij61an\tmp\driver.py", line 8, in <module> (diff)
+      r1()
+    File "native.py", line 10, in r1
+      q1()
+    File "native.py", line 13, in q1
+      raise Exception("test")
+  Exception: test
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-34ij61an\tmp\driver.py", line 12, in <module> (diff)
+      r2()
+    File "native.py", line 16, in r2
+      q2()
+    File "native.py", line 19, in q2
+      raise Exception
+  Exception
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-34ij61an\tmp\driver.py", line 16, in <module> (diff)
+      hey()
+    File "native.py", line 26, in hey
+      A()
+    File "native.py", line 23, in __init__
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 4, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-34ij61an\tmp\driver....
+             ^
+______________________________________________________________________ testTryExcept ______________________________________________________________________
+[gw0] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-exceptions.test:84:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-exceptions.test, line 84)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-ldtdfz8v\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  == i ==
+  <class 'IndexError'>
+  Traceback (most recent call last):
+    File "driver.py", line 6, in <module>       (diff)
+      i()
+    File "native.py", line 44, in i
+      r(0)
+    File "native.py", line 15, in r
+      [0][1]
+  IndexError: list index out of range
+  == k ==
+  Traceback (most recent call last):
+    File "native.py", line 59, in k
+      r(1)
+    File "native.py", line 17, in r
+      raise Exception('hi')
+  Exception: hi
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "driver.py", line 12, in <module>      (diff)
+      k()
+    File "native.py", line 61, in k
+      r(0)
+    File "native.py", line 15, in r
+  ...
+Actual:
+  == i ==
+  <class 'IndexError'>
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-ldtdfz8v\tmp\driver.py", line 6, in <module> (diff)
+      i()
+    File "native.py", line 44, in i
+      r(0)
+    File "native.py", line 15, in r
+      [0][1]
+  IndexError: list index out of range
+  == k ==
+  Traceback (most recent call last):
+    File "native.py", line 59, in k
+      r(1)
+    File "native.py", line 17, in r
+      raise Exception('hi')
+  Exception: hi
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-ldtdfz8v\tmp\driver.py", line 12, in <module> (diff)
+      k()
+    File "native.py", line 61, in k
+      r(0)
+    File "native.py", line 15, in r
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 6, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-ldtdfz8v\tmp\driver....
+             ^
+______________________________________________________________ testExceptionAtModuleTopLevel ______________________________________________________________
+[gw0] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-exceptions.test:425:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-exceptions.test, line 425)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-b9cklfic\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 3, in <module>       (diff)
+      import native
+    File "native.py", line 6, in <module>
+      f(y)
+  TypeError: int object expected; got str
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-b9cklfic\tmp\driver.py", line 3, in <module> (diff)
+      import native
+    File "native.py", line 6, in <module>
+      f(y)
+  TypeError: int object expected; got str
+
+Alignment of first line difference:
+  E:   File "driver.py", line 3, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-b9cklfic\tmp\driver....
+             ^
+_________________________________________________________________ testSubclassUninitAttr __________________________________________________________________
+[gw1] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-classes.test:636:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-classes.test, line 636)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-kuh3jd_f\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 4, in <module>       (diff)
+      A().x
+  AttributeError: attribute 'x' of 'X' undefined
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-kuh3jd_f\tmp\driver.py", line 4, in <module> (diff)
+      A().x
+  AttributeError: attribute 'x' of 'X' undefined
+
+Alignment of first line difference:
+  E:   File "driver.py", line 4, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-kuh3jd_f\tmp\driver....
+             ^
+______________________________________________________________________ testProperty _______________________________________________________________________
+[gw0] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-classes.test:1604:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-classes.test, line 1604)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-mhv4znwj\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 5, in <module>       (diff)
+      print (x.rankine)
+    File "native.py", line 16, in rankine
+      raise NotImplementedError
+  NotImplementedError
+  ...
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-mhv4znwj\tmp\driver.py", line 5, in <module> (diff)
+      print (x.rankine)
+    File "native.py", line 16, in rankine
+      raise NotImplementedError
+  NotImplementedError
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 5, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-mhv4znwj\tmp\driver....
+             ^
+_____________________________________________________________________ testYieldThrow ______________________________________________________________________
+[gw1] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-generators.test:248:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-generators.test, line 248)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-7q1o6one\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\__native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  ...
+    File "native.py", line 9, in generator
+      yield 2
+    File "native.py", line 8, in generator
+      yield 1
+    File "driver.py", line 31, in <module>      (diff)
+      raise Exception
+    File "native.py", line 10, in generator
+      yield 3
+    File "native.py", line 30, in wrapper
+  ...
+Actual:
+  ...
+    File "native.py", line 9, in generator
+      yield 2
+    File "native.py", line 8, in generator
+      yield 1
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-7q1o6one\tmp\driver.py", line 31, in <module> (diff)
+      raise Exception
+    File "native.py", line 10, in generator
+      yield 3
+    File "native.py", line 30, in wrapper
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 31, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-7q1o6one\tmp\driver....
+             ^
+________________________________________________________________ testMultiModuleTraceback _________________________________________________________________
+[gw0] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-multimodule.test:251:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-multimodule.test, line 251)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building '3ef2a66b8671abc76f6e__mypyc' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native_3ef2a66b8671abc76f6e.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native_3ef2a66b8671abc76f6e.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native_3ef2a66b8671abc76f6e.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-ry1cwtmj\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_3ef2a66b8671abc76f6e__mypyc build\temp.win-amd64-cpython-310\Release\build\__native_3ef2a66b8671abc76f6e.obj /OUT:build\lib.win-amd64-cpython-310\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.exp
+Generating code
+Finished generating code
+building 'native' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+native.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+building 'other' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\other.c /Fobuild\temp.win-amd64-cpython-310\Release\build\other.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+other.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_other build\temp.win-amd64-cpython-310\Release\build\other.obj /OUT:build\lib.win-amd64-cpython-310\other.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\other.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 6, in <module>       (diff)
+      other.fail2()
+    File "other.py", line 3, in fail2
+      x[2] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "driver.py", line 12, in <module>      (diff)
+      native.fail()
+    File "native.py", line 4, in fail
+      fail2()
+    File "other.py", line 3, in fail2
+  ...
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-ry1cwtmj\tmp\driver.py", line 6, in <module> (diff)
+      other.fail2()
+    File "other.py", line 3, in fail2
+      x[2] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-ry1cwtmj\tmp\driver.py", line 12, in <module> (diff)
+      native.fail()
+    File "native.py", line 4, in fail
+      fail2()
+    File "other.py", line 3, in fail2
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 6, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-ry1cwtmj\tmp\driver....
+             ^
+_____________________________________________________________ testMultiModuleTraceback_multi ______________________________________________________________
+[gw1] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-multimodule.test:251:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-multimodule.test, line 251)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building '3ef2a66b8671abc76f6e__mypyc' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native_3ef2a66b8671abc76f6e.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native_3ef2a66b8671abc76f6e.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+__native_3ef2a66b8671abc76f6e.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native_native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native_native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+__native_native.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native_other.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native_other.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+__native_other.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\bytes_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\bytes_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+bytes_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\dict_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\dict_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+dict_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\exc_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\exc_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+exc_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\generic_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\generic_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+generic_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\getargs.c /Fobuild\temp.win-amd64-cpython-310\Release\build\getargs.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+getargs.c
+build\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\getargsfast.c /Fobuild\temp.win-amd64-cpython-310\Release\build\getargsfast.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+getargsfast.c
+build\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\init.c /Fobuild\temp.win-amd64-cpython-310\Release\build\init.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+init.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\int_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\int_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+int_ops.c
+build\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+build\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\list_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\list_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+list_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\misc_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\misc_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+misc_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\set_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\set_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+set_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\str_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\str_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+str_ops.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\tuple_ops.c /Fobuild\temp.win-amd64-cpython-310\Release\build\tuple_ops.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+tuple_ops.c
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-xwxhfb2h\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_3ef2a66b8671abc76f6e__mypyc build\temp.win-amd64-cpython-310\Release\build\__native_3ef2a66b8671abc76f6e.obj build\temp.win-amd64-cpython-310\Release\build\__native_native.obj build\temp.win-amd64-cpython-310\Release\build\__native_other.obj build\temp.win-amd64-cpython-310\Release\build\bytes_ops.obj build\temp.win-amd64-cpython-310\Release\build\dict_ops.obj build\temp.win-amd64-cpython-310\Release\build\exc_ops.obj build\temp.win-amd64-cpython-310\Release\build\generic_ops.obj build\temp.win-amd64-cpython-310\Release\build\getargs.obj build\temp.win-amd64-cpython-310\Release\build\getargsfast.obj build\temp.win-amd64-cpython-310\Release\build\init.obj build\temp.win-amd64-cpython-310\Release\build\int_ops.obj build\temp.win-amd64-cpython-310\Release\build\list_ops.obj build\temp.win-amd64-cpython-310\Release\build\misc_ops.obj build\temp.win-amd64-cpython-310\Release\build\set_ops.obj build\temp.win-amd64-cpython-310\Release\build\str_ops.obj build\temp.win-amd64-cpython-310\Release\build\tuple_ops.obj /OUT:build\lib.win-amd64-cpython-310\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.exp
+LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+building 'native' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+native.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+building 'other' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\other.c /Fobuild\temp.win-amd64-cpython-310\Release\build\other.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146 /GL- /wd9025
+other.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_other build\temp.win-amd64-cpython-310\Release\build\other.obj /OUT:build\lib.win-amd64-cpython-310\other.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.exp
+LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+copying build\lib.win-amd64-cpython-310\3ef2a66b8671abc76f6e__mypyc.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\other.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/GL' with '/GL-'
+cl : Command line warning D9014 : invalid value '9025' for '/wd'; assuming '5999'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 6, in <module>       (diff)
+      other.fail2()
+    File "other.py", line 3, in fail2
+      x[2] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "driver.py", line 12, in <module>      (diff)
+      native.fail()
+    File "native.py", line 4, in fail
+      fail2()
+    File "other.py", line 3, in fail2
+  ...
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-xwxhfb2h\tmp\driver.py", line 6, in <module> (diff)
+      other.fail2()
+    File "other.py", line 3, in fail2
+      x[2] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-xwxhfb2h\tmp\driver.py", line 12, in <module> (diff)
+      native.fail()
+    File "native.py", line 4, in fail
+      fail2()
+    File "other.py", line 3, in fail2
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 6, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-xwxhfb2h\tmp\driver....
+             ^
+____________________________________________________________ testMultiModuleTraceback_separate ____________________________________________________________
+[gw3] win32 -- Python 3.10.6 C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE
+data: C:\Users\alexw\coding\mypy\mypyc\test-data\run-multimodule.test:251:
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:145: in run_case
+    self.run_case_inner(testcase)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:161: in run_case_inner
+    self.run_case_step(testcase, step)
+..\..\..\..\coding\mypy\mypyc\test\test_run.py:332: in run_case_step
+    assert_test_output(testcase, outlines, msg, expected)
+E   AssertionError: Invalid output (C:\Users\alexw\coding\mypy\mypyc\test-data\run-multimodule.test, line 251)
+------------------------------------------------------------------ Captured stdout call -------------------------------------------------------------------
+running build_ext
+building 'native__mypyc' extension
+creating build\temp.win-amd64-cpython-310
+creating build\temp.win-amd64-cpython-310\Release
+creating build\temp.win-amd64-cpython-310\Release\build
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native_native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native_native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native_native.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+creating C:\Users\alexw\AppData\Local\Temp\mypy-test-eo5gpazw\tmp\build\lib.win-amd64-cpython-310
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native__mypyc build\temp.win-amd64-cpython-310\Release\build\__native_native.obj /OUT:build\lib.win-amd64-cpython-310\native__mypyc.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native__mypyc.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native__mypyc.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native__mypyc.cp310-win_amd64.exp
+Generating code
+Finished generating code
+building 'native' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\native.c /Fobuild\temp.win-amd64-cpython-310\Release\build\native.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+native.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_native build\temp.win-amd64-cpython-310\Release\build\native.obj /OUT:build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\native.cp310-win_amd64.exp
+Generating code
+Finished generating code
+building 'other__mypyc' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\mypyc\lib-rt -Ibuild -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\__native_other.c /Fobuild\temp.win-amd64-cpython-310\Release\build\__native_other.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+__native_other.c
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargs.c(342): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\getargsfast.c(452): warning C4244: '=': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(288): warning C4244: 'function': conversion from 'Py_ssize_t' to 'int', possible loss of data
+C:\Users\alexw\coding\mypy\mypyc\lib-rt\int_ops.c(353): warning C4244: '=': conversion from 'Py_ssize_t' to 'digit', possible loss of data
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_other__mypyc build\temp.win-amd64-cpython-310\Release\build\__native_other.obj /OUT:build\lib.win-amd64-cpython-310\other__mypyc.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\other__mypyc.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\other__mypyc.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\other__mypyc.cp310-win_amd64.exp
+Generating code
+Finished generating code
+building 'other' extension
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\cl.exe" /c /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\Users\alexw\coding\mypy\.tox\py\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\include -IC:\Users\alexw\AppData\Local\Programs\Python\Python310\Include "-IC:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.19041.0\\cppwinrt" /Tcbuild\other.c /Fobuild\temp.win-amd64-cpython-310\Release\build\other.obj /Od /DEBUG:FASTLINK /wd4102 /wd4101 /wd4146
+other.c
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\bin\HostX86\x64\link.exe" /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=2 /MANIFESTUAC:NO /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310\libs /LIBPATH:C:\Users\alexw\AppData\Local\Programs\Python\Python310 /LIBPATH:C:\Users\alexw\coding\mypy\.tox\py\PCbuild\amd64 "/LIBPATH:C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\lib\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.19041.0\ucrt\x64" "/LIBPATH:C:\Program Files (x86)\Windows Kits\10\\lib\10.0.19041.0\\um\x64" /EXPORT:PyInit_other build\temp.win-amd64-cpython-310\Release\build\other.obj /OUT:build\lib.win-amd64-cpython-310\other.cp310-win_amd64.pyd /IMPLIB:build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.lib
+   Creating library build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.lib and object build\temp.win-amd64-cpython-310\Release\build\other.cp310-win_amd64.exp
+Generating code
+Finished generating code
+copying build\lib.win-amd64-cpython-310\native__mypyc.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\native.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\other__mypyc.cp310-win_amd64.pyd ->
+copying build\lib.win-amd64-cpython-310\other.cp310-win_amd64.pyd ->
+------------------------------------------------------------------ Captured stderr call -------------------------------------------------------------------
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+cl : Command line warning D9025 : overriding '/O2' with '/Od'
+Expected:
+  Traceback (most recent call last):
+    File "driver.py", line 6, in <module>       (diff)
+      other.fail2()
+    File "other.py", line 3, in fail2
+      x[2] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "driver.py", line 12, in <module>      (diff)
+      native.fail()
+    File "native.py", line 4, in fail
+      fail2()
+    File "other.py", line 3, in fail2
+  ...
+Actual:
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-eo5gpazw\tmp\driver.py", line 6, in <module> (diff)
+      other.fail2()
+    File "other.py", line 3, in fail2
+      x[2] = 2
+  IndexError: list assignment index out of range
+  Traceback (most recent call last):
+    File "C:\Users\alexw\AppData\Local\Temp\mypy-test-eo5gpazw\tmp\driver.py", line 12, in <module> (diff)
+      native.fail()
+    File "native.py", line 4, in fail
+      fail2()
+    File "other.py", line 3, in fail2
+  ...
+
+Alignment of first line difference:
+  E:   File "driver.py", line 6, in <module>...
+  A:   File "C:\Users\alexw\AppData\Local\Temp\mypy-test-eo5gpazw\tmp\driver....
+             ^
+================================================================== slowest 100 durations ==================================================================
+45.31s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNamespaceImportAs
+41.87s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNamespaceRegImport
+40.73s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNamespaceImportFrom
+39.68s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testPep561TestIncremental
+38.57s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNamespaceRegFromImportTwice
+37.72s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testNamespacePkgWStubs
+37.61s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testNamespacePkgWStubsWithNamespacePackagesFlag
+36.99s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testStubPrecedence
+36.43s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgStubs
+35.28s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkg_args_nositepackages
+34.91s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgSimpleEditable
+33.96s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkg_config_nositepackages
+33.88s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgSimpleEgg
+32.90s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testIncrementalCompilation1_multi
+31.47s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNamespaceRegFromImportTwiceMissing2
+30.78s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNamespaceRegFromImportTwiceMissing
+30.25s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgSimpleEditableEgg
+27.31s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgSimplePackageSearchPath
+26.21s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgNoSitePkgsIgnoredImports
+25.71s call     mypy/test/testpep561.py::PEP561Suite::pep561.test::testTypedPkgSimple
+22.60s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilation1_separate
+21.95s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestart
+21.21s call     mypyc/test/test_run.py::TestRun::run-async.test::testAsync
+21.11s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval.test::testIgnoreImportIfNoPython3StubAvailable
+20.92s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestartPretty
+20.48s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval.test::testNoPython3StubAvailable
+20.48s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestartPluginVersion
+20.05s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval.test::testEnumValueWithPlaceholderNodeType
+18.71s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonGetType_python38
+18.19s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testIncrementalCompilation2_multi
+17.66s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonGetTypeInexact_python38
+17.56s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval.test::testSpecialTypingProtocols
+17.50s call     mypyc/test/test_run.py::TestRun::run-multimodule.test::testIncrementalCompilation1
+17.24s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonGetDefinition_python38
+17.09s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testSeparateCompilationWithUndefinedAttribute_multi
+16.93s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testIncrementalCompilation5_multi
+16.92s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testIncrementalCompilationWithDeletable_multi
+16.85s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testCoverageIgnoresCache
+16.81s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testTrivialIncremental_multi
+16.40s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testMultiModuleFastpaths_multi
+16.31s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testIncrementalCompilation6_multi
+16.06s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonSuggest
+16.02s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonGetAttrs_python38
+15.95s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testErrorSummaryOnSuccess
+15.83s call     mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testIncrementalCompilation3_multi
+15.04s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testErrorSummaryOnFail
+14.88s call     mypy/test/testerrorstream.py::ErrorStreamSuite::errorstream.test::testErrorStream
+14.87s call     mypy/test/testerrorstream.py::ErrorStreamSuite::errorstream.test::testBlockers
+14.50s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestartGlobs
+14.41s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonQuickstart
+14.37s call     mypyc/test/test_commandline.py::TestCommandLine::commandline.test::testCompileMypyc
+14.10s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testHtmlReportMemberExprNoUnanalyzed
+13.76s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval.test::testNoSubcriptionOfStdlibCollections
+13.58s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRun
+13.54s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonBasic
+13.53s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval-asyncio.test::testErrorSetFutureDifferentInternalType
+13.39s call     mypy/test/testpythoneval.py::PythonEvaluationSuite::pythoneval.test::testHello
+13.22s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testErrorSummaryOnFailNotes
+13.12s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testTabRenderingUponError
+12.64s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilation4_separate
+12.55s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testSeparateCompilationWithUndefinedAttribute_separate
+12.29s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testErrorSummaryOnFailTwoErrors
+12.18s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testProtocolAbstractMethod_semanal
+12.03s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testCmdlineCfgExclude
+11.97s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilation5_separate
+11.91s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilation2_separate
+11.66s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilation3_separate
+11.65s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testHtmlReportOnNamespacePackagesWithExplicitBases
+11.63s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testABCMeta_semanal
+11.36s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testUnreachableCodeMarkedAsAny
+11.28s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testConditionalImportAll_semanal
+11.19s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testConfigFollowImportsError
+11.17s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testAnyExprReportDivisionByZero
+11.06s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilation6_separate
+10.94s call     mypyc/test/test_run.py::TestRun::run-singledispatch.test::testDynamicallyRegisteringFunctionFromInterpretedCode
+10.94s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testTrivialIncremental_separate
+10.90s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testPrivateAliasesExcluded_semanal
+10.87s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testAnyExprReportIgnoresSpecialForms
+10.80s call     mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRecheck
+10.74s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testShowSourceCodeSnippetsWrappedFormatting
+10.72s call     mypyc/test/test_run.py::TestRun::run-strings.test::testFStrings
+10.61s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testClassDefIsNotTreatedAsEmpty
+10.60s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testConfigFollowImportsSysPath
+10.56s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testStubsSubDirectory
+10.51s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testMultiModuleFastpaths_separate
+10.48s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testAttrsClass_semanal
+10.44s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testCmdlineCfgMultipleExclude
+10.40s call     mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testIncrementalCompilationWithDeletable_separate
+10.33s call     mypyc/test/test_run.py::TestRun::run-multimodule.test::testTrivialIncremental
+10.27s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testUnreachableCode_semanal
+10.21s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testSpecialAnyHtmlReport
+10.17s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.pyproject.test::testNoModuleInOverridePyprojectTOML
+10.17s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testAbstractProperty3_semanal
+10.12s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.pyproject.test::testNonArrayOverridesPyprojectTOML
+10.06s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testTypeVarTreatedAsEmptyLine
+10.05s call     mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testCannotCalculateMRO_semanal
+10.05s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testAnyExprReportHigherKindedTypesAreNotAny
+10.03s call     mypy/test/testcmdline.py::PythonCmdlineSuite::reports.test::testAnyExpressionsReportUnqualifiedError
+9.99s call     mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.test::testCmdlineNonInteractiveInstallTypesNothingToDo
+9.97s call     mypy/test/testcmdline.py::PythonCmdlineSuite::envvars.test::testEnvvar_MYPY_CONFIG_FILE_DIR
+================================================================= short test summary info =================================================================
+FAILED mypyc/test/test_run.py::TestRun::run-loops.test::testForIterable
+FAILED mypyc/test/test_run.py::TestRun::run-exceptions.test::testException
+FAILED mypyc/test/test_run.py::TestRun::run-exceptions.test::testTryExcept
+FAILED mypyc/test/test_run.py::TestRun::run-exceptions.test::testExceptionAtModuleTopLevel
+FAILED mypyc/test/test_run.py::TestRun::run-classes.test::testSubclassUninitAttr
+FAILED mypyc/test/test_run.py::TestRun::run-classes.test::testProperty
+FAILED mypyc/test/test_run.py::TestRun::run-generators.test::testYieldThrow
+FAILED mypyc/test/test_run.py::TestRun::run-multimodule.test::testMultiModuleTraceback
+FAILED mypyc/test/test_run.py::TestRunMultiFile::run-multimodule.test::testMultiModuleTraceback_multi
+FAILED mypyc/test/test_run.py::TestRunSeparate::run-multimodule.test::testMultiModuleTraceback_separate
+========================================== 10 failed, 10282 passed, 331 skipped, 9 xfailed in 1515.66s (0:25:15) ==========================================
+ERROR: InvocationError for command 'C:\Users\alexw\coding\mypy\.tox\py\Scripts\python.EXE' -m pytest --durations 100 (exited with code 1)
+_________________________________________________________________________ summary _________________________________________________________________________
+ERROR:   py: commands failed
